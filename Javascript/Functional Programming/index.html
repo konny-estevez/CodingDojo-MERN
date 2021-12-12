@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Test promises</h1>
+    <script>
+        const promise1 = fetch("https://jsonplaceholder.typicode.com/todos/1");
+        const promise2 = fetch("https://jsonplaceholder.typicode.com/todos/2");
+        const promise3 = fetch("https://jsonplaceholder.typicode.com/todos/3");
+        Promise.all([promise1, promise2, promise3])
+            .then((responses) => {
+                // Create new array of json Promises.
+                const jsonPromises = responses.map((res) => res.json());
+                return Promise.all(jsonPromises);
+            })
+            .then((jsonResponses) => {
+                console.log(jsonResponses);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    </script>
+</body>
+
+</html>
