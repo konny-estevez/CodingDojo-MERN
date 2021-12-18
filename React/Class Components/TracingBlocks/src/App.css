@@ -1,0 +1,90 @@
+.App {
+  text-align: center;
+  background-color: #dddddd;
+  border: 1px solid black;
+  padding: 15px;
+  margin: 15px;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.header {
+  background-color: #6aa84f;
+  height: 100px;
+  border: 1px solid black;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.navigation {
+  background-color: #6fa8dc;
+  height: 450px;
+  width: 20%;
+  border: 1px solid black;
+  margin-right: 15px;
+  margin-left: 0px;
+  display: inline-table;
+  padding-top: 15px;
+}
+
+.main {
+  background-color: #e06666;
+  width: 77%;
+  border: 1px solid black;
+  display: inline-table;
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  height: 100%;
+}
+
+.subcontent {
+  background-color: #ffd966;
+  border: 1px solid black;
+  width: 29%;
+  display:inline-table;
+  height: 400px;
+  margin-inline: 10px;
+  margin-bottom: 15px;
+}
+
+.advertisement {
+  background-color: #b4a7d6;
+  border: 1px solid black;
+  height: 150px;
+  margin-inline: 10px;
+}
