@@ -1,0 +1,498 @@
+Req: https://pokeapi.co/api/v2/{
+Resp: {
+    "ability": "https://pokeapi.co/api/v2/ability/",
+    "berry": "https://pokeapi.co/api/v2/berry/",
+    "berry-firmness": "https://pokeapi.co/api/v2/berry-firmness/",
+    "berry-flavor": "https://pokeapi.co/api/v2/berry-flavor/",
+    "characteristic": "https://pokeapi.co/api/v2/characteristic/",
+    "contest-effect": "https://pokeapi.co/api/v2/contest-effect/",
+    "contest-type": "https://pokeapi.co/api/v2/contest-type/",
+    "egg-group": "https://pokeapi.co/api/v2/egg-group/",
+    "encounter-condition": "https://pokeapi.co/api/v2/encounter-condition/",
+    "encounter-condition-value": "https://pokeapi.co/api/v2/encounter-condition-value/",
+    "encounter-method": "https://pokeapi.co/api/v2/encounter-method/",
+    "evolution-chain": "https://pokeapi.co/api/v2/evolution-chain/",
+    "evolution-trigger": "https://pokeapi.co/api/v2/evolution-trigger/",
+    "gender": "https://pokeapi.co/api/v2/gender/",
+    "generation": "https://pokeapi.co/api/v2/generation/",
+    "growth-rate": "https://pokeapi.co/api/v2/growth-rate/",
+    "item": "https://pokeapi.co/api/v2/item/",
+    "item-attribute": "https://pokeapi.co/api/v2/item-attribute/",
+    "item-category": "https://pokeapi.co/api/v2/item-category/",
+    "item-fling-effect": "https://pokeapi.co/api/v2/item-fling-effect/",
+    "item-pocket": "https://pokeapi.co/api/v2/item-pocket/",
+    "language": "https://pokeapi.co/api/v2/language/",
+    "location": "https://pokeapi.co/api/v2/location/",
+    "location-area": "https://pokeapi.co/api/v2/location-area/",
+    "machine": "https://pokeapi.co/api/v2/machine/",
+    "move": "https://pokeapi.co/api/v2/move/",
+    "move-ailment": "https://pokeapi.co/api/v2/move-ailment/",
+    "move-battle-style": "https://pokeapi.co/api/v2/move-battle-style/",
+    "move-category": "https://pokeapi.co/api/v2/move-category/",
+    "move-damage-class": "https://pokeapi.co/api/v2/move-damage-class/",
+    "move-learn-method": "https://pokeapi.co/api/v2/move-learn-method/",
+    "move-target": "https://pokeapi.co/api/v2/move-target/",
+    "nature": "https://pokeapi.co/api/v2/nature/",
+    "pal-park-area": "https://pokeapi.co/api/v2/pal-park-area/",
+    "pokeathlon-stat": "https://pokeapi.co/api/v2/pokeathlon-stat/",
+    "pokedex": "https://pokeapi.co/api/v2/pokedex/",
+    "pokemon": "https://pokeapi.co/api/v2/pokemon/",
+    "pokemon-color": "https://pokeapi.co/api/v2/pokemon-color/",
+    "pokemon-form": "https://pokeapi.co/api/v2/pokemon-form/",
+    "pokemon-habitat": "https://pokeapi.co/api/v2/pokemon-habitat/",
+    "pokemon-shape": "https://pokeapi.co/api/v2/pokemon-shape/",
+    "pokemon-species": "https://pokeapi.co/api/v2/pokemon-species/",
+    "region": "https://pokeapi.co/api/v2/region/",
+    "stat": "https://pokeapi.co/api/v2/stat/",
+    "super-contest-effect": "https://pokeapi.co/api/v2/super-contest-effect/",
+    "type": "https://pokeapi.co/api/v2/type/",
+    "version": "https://pokeapi.co/api/v2/version/",
+    "version-group": "https://pokeapi.co/api/v2/version-group/"
+}
+
+Req: https://pokeapi.co/api/v2/item/
+Resp: {
+    "count": 1607,
+    "next": "https://pokeapi.co/api/v2/item/?offset=20&limit=20",
+    "previous": null,
+    "results": [
+        {
+            "name": "master-ball",
+            "url": "https://pokeapi.co/api/v2/item/1/"
+        },
+        {
+            "name": "ultra-ball",
+            "url": "https://pokeapi.co/api/v2/item/2/"
+        },
+        {
+            "name": "great-ball",
+            "url": "https://pokeapi.co/api/v2/item/3/"
+        },
+        {
+            "name": "poke-ball",
+            "url": "https://pokeapi.co/api/v2/item/4/"
+        },
+        {
+            "name": "safari-ball",
+            "url": "https://pokeapi.co/api/v2/item/5/"
+        },
+        {
+            "name": "net-ball",
+            "url": "https://pokeapi.co/api/v2/item/6/"
+        },
+        {
+            "name": "dive-ball",
+            "url": "https://pokeapi.co/api/v2/item/7/"
+        },
+        {
+            "name": "nest-ball",
+            "url": "https://pokeapi.co/api/v2/item/8/"
+        },
+        {
+            "name": "repeat-ball",
+            "url": "https://pokeapi.co/api/v2/item/9/"
+        },
+        {
+            "name": "timer-ball",
+            "url": "https://pokeapi.co/api/v2/item/10/"
+        },
+        {
+            "name": "luxury-ball",
+            "url": "https://pokeapi.co/api/v2/item/11/"
+        },
+        {
+            "name": "premier-ball",
+            "url": "https://pokeapi.co/api/v2/item/12/"
+        },
+        {
+            "name": "dusk-ball",
+            "url": "https://pokeapi.co/api/v2/item/13/"
+        },
+        {
+            "name": "heal-ball",
+            "url": "https://pokeapi.co/api/v2/item/14/"
+        },
+        {
+            "name": "quick-ball",
+            "url": "https://pokeapi.co/api/v2/item/15/"
+        },
+        {
+            "name": "cherish-ball",
+            "url": "https://pokeapi.co/api/v2/item/16/"
+        },
+        {
+            "name": "potion",
+            "url": "https://pokeapi.co/api/v2/item/17/"
+        },
+        {
+            "name": "antidote",
+            "url": "https://pokeapi.co/api/v2/item/18/"
+        },
+        {
+            "name": "burn-heal",
+            "url": "https://pokeapi.co/api/v2/item/19/"
+        },
+        {
+            "name": "ice-heal",
+            "url": "https://pokeapi.co/api/v2/item/20/"
+        }
+    ]
+}
+
+Req: https://pokeapi.co/api/v2/location/
+Resp: {
+    "count": 796,
+    "next": "https://pokeapi.co/api/v2/location/?offset=20&limit=20",
+    "previous": null,
+    "results": [
+        {
+            "name": "canalave-city",
+            "url": "https://pokeapi.co/api/v2/location/1/"
+        },
+        {
+            "name": "eterna-city",
+            "url": "https://pokeapi.co/api/v2/location/2/"
+        },
+        {
+            "name": "pastoria-city",
+            "url": "https://pokeapi.co/api/v2/location/3/"
+        },
+        {
+            "name": "sunyshore-city",
+            "url": "https://pokeapi.co/api/v2/location/4/"
+        },
+        {
+            "name": "sinnoh-pokemon-league",
+            "url": "https://pokeapi.co/api/v2/location/5/"
+        },
+        {
+            "name": "oreburgh-mine",
+            "url": "https://pokeapi.co/api/v2/location/6/"
+        },
+        {
+            "name": "valley-windworks",
+            "url": "https://pokeapi.co/api/v2/location/7/"
+        },
+        {
+            "name": "eterna-forest",
+            "url": "https://pokeapi.co/api/v2/location/8/"
+        },
+        {
+            "name": "fuego-ironworks",
+            "url": "https://pokeapi.co/api/v2/location/9/"
+        },
+        {
+            "name": "mt-coronet",
+            "url": "https://pokeapi.co/api/v2/location/10/"
+        },
+        {
+            "name": "great-marsh",
+            "url": "https://pokeapi.co/api/v2/location/11/"
+        },
+        {
+            "name": "solaceon-ruins",
+            "url": "https://pokeapi.co/api/v2/location/12/"
+        },
+        {
+            "name": "sinnoh-victory-road",
+            "url": "https://pokeapi.co/api/v2/location/13/"
+        },
+        {
+            "name": "ravaged-path",
+            "url": "https://pokeapi.co/api/v2/location/14/"
+        },
+        {
+            "name": "oreburgh-gate",
+            "url": "https://pokeapi.co/api/v2/location/15/"
+        },
+        {
+            "name": "stark-mountain",
+            "url": "https://pokeapi.co/api/v2/location/16/"
+        },
+        {
+            "name": "spring-path",
+            "url": "https://pokeapi.co/api/v2/location/17/"
+        },
+        {
+            "name": "turnback-cave",
+            "url": "https://pokeapi.co/api/v2/location/18/"
+        },
+        {
+            "name": "snowpoint-temple",
+            "url": "https://pokeapi.co/api/v2/location/19/"
+        },
+        {
+            "name": "wayward-cave",
+            "url": "https://pokeapi.co/api/v2/location/20/"
+        }
+    ]
+}
+
+Req: https://pokeapi.co/api/v2/pokemon/
+Resp: {
+    "count": 1118,
+    "next": "https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20",
+    "previous": null,
+    "results": [
+        {
+            "name": "bulbasaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/1/"
+        },
+        {
+            "name": "ivysaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/2/"
+        },
+        {
+            "name": "venusaur",
+            "url": "https://pokeapi.co/api/v2/pokemon/3/"
+        },
+        {
+            "name": "charmander",
+            "url": "https://pokeapi.co/api/v2/pokemon/4/"
+        },
+        {
+            "name": "charmeleon",
+            "url": "https://pokeapi.co/api/v2/pokemon/5/"
+        },
+        {
+            "name": "charizard",
+            "url": "https://pokeapi.co/api/v2/pokemon/6/"
+        },
+        {
+            "name": "squirtle",
+            "url": "https://pokeapi.co/api/v2/pokemon/7/"
+        },
+        {
+            "name": "wartortle",
+            "url": "https://pokeapi.co/api/v2/pokemon/8/"
+        },
+        {
+            "name": "blastoise",
+            "url": "https://pokeapi.co/api/v2/pokemon/9/"
+        },
+        {
+            "name": "caterpie",
+            "url": "https://pokeapi.co/api/v2/pokemon/10/"
+        },
+        {
+            "name": "metapod",
+            "url": "https://pokeapi.co/api/v2/pokemon/11/"
+        },
+        {
+            "name": "butterfree",
+            "url": "https://pokeapi.co/api/v2/pokemon/12/"
+        },
+        {
+            "name": "weedle",
+            "url": "https://pokeapi.co/api/v2/pokemon/13/"
+        },
+        {
+            "name": "kakuna",
+            "url": "https://pokeapi.co/api/v2/pokemon/14/"
+        },
+        {
+            "name": "beedrill",
+            "url": "https://pokeapi.co/api/v2/pokemon/15/"
+        },
+        {
+            "name": "pidgey",
+            "url": "https://pokeapi.co/api/v2/pokemon/16/"
+        },
+        {
+            "name": "pidgeotto",
+            "url": "https://pokeapi.co/api/v2/pokemon/17/"
+        },
+        {
+            "name": "pidgeot",
+            "url": "https://pokeapi.co/api/v2/pokemon/18/"
+        },
+        {
+            "name": "rattata",
+            "url": "https://pokeapi.co/api/v2/pokemon/19/"
+        },
+        {
+            "name": "raticate",
+            "url": "https://pokeapi.co/api/v2/pokemon/20/"
+        }
+    ]
+}
+
+Req: https://pokeapi.co/api/v2/pokedex/
+Resp: {
+    "count": 28,
+    "next": "https://pokeapi.co/api/v2/pokedex/?offset=20&limit=8",
+    "previous": null,
+    "results": [
+        {
+            "name": "national",
+            "url": "https://pokeapi.co/api/v2/pokedex/1/"
+        },
+        {
+            "name": "kanto",
+            "url": "https://pokeapi.co/api/v2/pokedex/2/"
+        },
+        {
+            "name": "original-johto",
+            "url": "https://pokeapi.co/api/v2/pokedex/3/"
+        },
+        {
+            "name": "hoenn",
+            "url": "https://pokeapi.co/api/v2/pokedex/4/"
+        },
+        {
+            "name": "original-sinnoh",
+            "url": "https://pokeapi.co/api/v2/pokedex/5/"
+        },
+        {
+            "name": "extended-sinnoh",
+            "url": "https://pokeapi.co/api/v2/pokedex/6/"
+        },
+        {
+            "name": "updated-johto",
+            "url": "https://pokeapi.co/api/v2/pokedex/7/"
+        },
+        {
+            "name": "original-unova",
+            "url": "https://pokeapi.co/api/v2/pokedex/8/"
+        },
+        {
+            "name": "updated-unova",
+            "url": "https://pokeapi.co/api/v2/pokedex/9/"
+        },
+        {
+            "name": "conquest-gallery",
+            "url": "https://pokeapi.co/api/v2/pokedex/11/"
+        },
+        {
+            "name": "kalos-central",
+            "url": "https://pokeapi.co/api/v2/pokedex/12/"
+        },
+        {
+            "name": "kalos-coastal",
+            "url": "https://pokeapi.co/api/v2/pokedex/13/"
+        },
+        {
+            "name": "kalos-mountain",
+            "url": "https://pokeapi.co/api/v2/pokedex/14/"
+        },
+        {
+            "name": "updated-hoenn",
+            "url": "https://pokeapi.co/api/v2/pokedex/15/"
+        },
+        {
+            "name": "original-alola",
+            "url": "https://pokeapi.co/api/v2/pokedex/16/"
+        },
+        {
+            "name": "original-melemele",
+            "url": "https://pokeapi.co/api/v2/pokedex/17/"
+        },
+        {
+            "name": "original-akala",
+            "url": "https://pokeapi.co/api/v2/pokedex/18/"
+        },
+        {
+            "name": "original-ulaula",
+            "url": "https://pokeapi.co/api/v2/pokedex/19/"
+        },
+        {
+            "name": "original-poni",
+            "url": "https://pokeapi.co/api/v2/pokedex/20/"
+        },
+        {
+            "name": "updated-alola",
+            "url": "https://pokeapi.co/api/v2/pokedex/21/"
+        }
+    ]
+}
+
+Req: https://pokeapi.co/api/v2/nature/
+Resp: {
+    "count": 25,
+    "next": "https://pokeapi.co/api/v2/nature/?offset=20&limit=5",
+    "previous": null,
+    "results": [
+        {
+            "name": "hardy",
+            "url": "https://pokeapi.co/api/v2/nature/1/"
+        },
+        {
+            "name": "bold",
+            "url": "https://pokeapi.co/api/v2/nature/2/"
+        },
+        {
+            "name": "modest",
+            "url": "https://pokeapi.co/api/v2/nature/3/"
+        },
+        {
+            "name": "calm",
+            "url": "https://pokeapi.co/api/v2/nature/4/"
+        },
+        {
+            "name": "timid",
+            "url": "https://pokeapi.co/api/v2/nature/5/"
+        },
+        {
+            "name": "lonely",
+            "url": "https://pokeapi.co/api/v2/nature/6/"
+        },
+        {
+            "name": "docile",
+            "url": "https://pokeapi.co/api/v2/nature/7/"
+        },
+        {
+            "name": "mild",
+            "url": "https://pokeapi.co/api/v2/nature/8/"
+        },
+        {
+            "name": "gentle",
+            "url": "https://pokeapi.co/api/v2/nature/9/"
+        },
+        {
+            "name": "hasty",
+            "url": "https://pokeapi.co/api/v2/nature/10/"
+        },
+        {
+            "name": "adamant",
+            "url": "https://pokeapi.co/api/v2/nature/11/"
+        },
+        {
+            "name": "impish",
+            "url": "https://pokeapi.co/api/v2/nature/12/"
+        },
+        {
+            "name": "bashful",
+            "url": "https://pokeapi.co/api/v2/nature/13/"
+        },
+        {
+            "name": "careful",
+            "url": "https://pokeapi.co/api/v2/nature/14/"
+        },
+        {
+            "name": "rash",
+            "url": "https://pokeapi.co/api/v2/nature/15/"
+        },
+        {
+            "name": "jolly",
+            "url": "https://pokeapi.co/api/v2/nature/16/"
+        },
+        {
+            "name": "naughty",
+            "url": "https://pokeapi.co/api/v2/nature/17/"
+        },
+        {
+            "name": "lax",
+            "url": "https://pokeapi.co/api/v2/nature/18/"
+        },
+        {
+            "name": "quirky",
+            "url": "https://pokeapi.co/api/v2/nature/19/"
+        },
+        {
+            "name": "naive",
+            "url": "https://pokeapi.co/api/v2/nature/20/"
+        }
+    ]
+}
+
+
