@@ -1,0 +1,277 @@
+MongoDB shell version v4.4.4
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("e300be32-3a46-4e2e-8c4c-ce09ea3f44b0") }
+MongoDB server version: 4.4.4
+Welcome to the MongoDB shell.
+For interactive help, type "help".
+For more comprehensive documentation, see
+        https://docs.mongodb.com/
+Questions? Try the MongoDB Developer Community Forums
+        https://community.mongodb.com
+---
+The server generated these startup warnings when booting:
+        2022-01-06T21:39:26.333-05:00: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show dbs
+admin        0.000GB
+coding-dojo  0.000GB
+config       0.000GB
+local        0.000GB
+> use my_first_db
+switched to db my_first_db
+> show dbs
+admin        0.000GB
+coding-dojo  0.000GB
+config       0.000GB
+local        0.000GB
+> db.create("students")
+uncaught exception: TypeError: db.create is not a function :
+@(shell):1:1
+> db.createCollection("students")
+{ "ok" : 1 }
+> show collections
+students
+> db.students.insert({name: "Konny Estevez", home_state: "Pichincha", lucky_number: 47, birthday: {month: 8, day: 31, year: 1976}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Anna Najera", home_state: "Riobamba", lucky_number: 31, birthday: {month: 6, day: 5, year: 1975}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Jackeline Estevez", home_state: "Pichincha", lucky_number: 53, birthday: {month: 5, day: 5, year: 1974}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Damian Nicolalde", home_state: "Pichincha", lucky_number: 27, birthday: {month: 3, day: 15, year: 1980}})
+WriteResult({ "nInserted" : 1 })
+> db.students.insert({name: "Patricia Proano", home_state: "Imbabura", lucky_number: 39, birthday: {month: 9, day: 12, year: 1982}})
+WriteResult({ "nInserted" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.find({home_state: "California"})
+> db.students.find({home_state: "Pichincha"})
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+> db.students.find({lucky_number: $gte 35})
+uncaught exception: SyntaxError: missing } after property list :
+@(shell):1:37
+> db.students.find({lucky_number: {$gte 35}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:38
+> db.students.find({lucky_number: {$gt 35}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:37
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.find({lucky_number: 47})
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+> db.students.find({lucky_number: 35})
+> db.students.find({lucky_number: 31})
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+> db.students.find({lucky_number: {$gt: 30}})
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.find({lucky_number: {$gt: 35}})
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.update({$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:63
+> db.students.update({},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:66
+> db.students.update({:},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: expected property name, got ':' :
+@(shell):1:20
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 } }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.update({name:},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: expected expression, got '}' :
+@(shell):1:25
+> db.students.update({name:*},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: expected expression, got '*' :
+@(shell):1:25
+> db.students.update({name:%},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: expected expression, got '%' :
+@(shell):1:25
+> db.students.update({name:?},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: expected expression, got '?' :
+@(shell):1:25
+> db.students.update({},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:66
+> db.students.update({name:"Konny Estevez"},{$push: {interests: 'codificación', 'brunch', 'MongoDB'}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:86
+> db.students.update({name:"Konny Estevez"},{$push: {interests: {'codificación', 'brunch', 'MongoDB'}}})
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:77
+> db.students.update({name:"Konny Estevez"},{$push: {interests: ['codificación', 'brunch', 'MongoDB']}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({},{$addToSet: {interests: ['codificación', 'brunch', 'MongoDB']}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ] ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.update({},{$addToSet: {interests: ['codificación', 'brunch', 'MongoDB']}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update(,{$addToSet: {interests: ['codificación', 'brunch', 'MongoDB']}})
+uncaught exception: SyntaxError: expected expression, got ',' :
+@(shell):1:19
+> db.students.update({},{$addToSet: {interests: ['codificación', 'brunch', 'MongoDB']}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({},{$push: {interests: ['codificación', 'brunch', 'MongoDB']}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ] ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 } }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 } }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.update({name:"Konny Estevez"},{$addToSet: {interests: 'Python]}})
+uncaught exception: SyntaxError: '' literal not terminated before end of script :
+@(shell):1:77
+> db.students.update({name:"Konny Estevez"},{$addToSet: {interests: 'Python'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({name:"Konny Estevez"},{$addToSet: {interests: 'Python'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({name:"Anna Najera"},{$addToSet: {interests: 'Netflix'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+>
+> db.students.update({name:"Anna Najera"},{$addToSet: {interests: 'Netflix'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({name:"Jackeline Estevez"},{$addToSet: {interests: 'Taxes'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.find()
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 }, "interests" : [ "Taxes" ] }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.update({name:"Jackeline Estevez"},{$pull: {interests: 'Taxes'}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 }, "interests" : [ ] }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+{ "_id" : ObjectId("61d7ad0356cce3156964792e"), "name" : "Patricia Proano", "home_state" : "Imbabura", "lucky_number" : 39, "birthday" : { "month" : 9, "day" : 12, "year" : 1982 } }
+> db.students.destroy({home_state: "Imbabura"})
+uncaught exception: TypeError: db.students.destroy is not a function :
+@(shell):1:1
+> db.students.remove({home_state: "Imbabura"})
+WriteResult({ "nRemoved" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 }, "interests" : [ ] }
+{ "_id" : ObjectId("61d7acc856cce3156964792d"), "name" : "Damian Nicolalde", "home_state" : "Pichincha", "lucky_number" : 27, "birthday" : { "month" : 3, "day" : 15, "year" : 1980 } }
+> db.students.remove({name: "Damian Nicolalde"})
+WriteResult({ "nRemoved" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+{ "_id" : ObjectId("61d7ab8f56cce3156964792c"), "name" : "Jackeline Estevez", "home_state" : "Pichincha", "lucky_number" : 53, "birthday" : { "month" : 5, "day" : 5, "year" : 1974 }, "interests" : [ ] }
+> db.students.remove({lucky_number: {$gte: 50}})
+WriteResult({ "nRemoved" : 1 })
+> db.students.remove({lucky_number: {$gte: 50}})
+WriteResult({ "nRemoved" : 0 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ] }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({},{$set: {number_of_belts: 0}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "number_of_belts" : 0 }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({},{$set: {number_of_belts: 0}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({},{$set: {number_of_belts: 0}}, true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({},{$set: {number_of_belts: 0}}, false)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "number_of_belts" : 0 }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({},{$set: {number_of_belts: 0}}, true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({lucky_number {$gte: 0}},{$set: {number_of_belts: 0}}, true)
+uncaught exception: SyntaxError: missing : after property id :
+@(shell):1:33
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: 0}}, true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: 0}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: 0}}, false)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: 0}}, false)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "number_of_belts" : 0 }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: number_of_belts +1}}, false)
+uncaught exception: ReferenceError: number_of_belts is not defined :
+@(shell):1:54
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: {number_of_belts} +1}}, false)
+uncaught exception: ReferenceError: number_of_belts is not defined :
+@(shell):1:72
+> db.students.update({lucky_number: {$gte: 0}},{$set: {number_of_belts: 1}}, false)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({lucky_number: {$gte: 0}},{$set: {belts_earned: 1}}, false)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.update({lucky_number: {$gte: 0}},{$unset: {number_of_belts: 1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "lucky_number" : 47, "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "belts_earned" : 1 }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({}},{$unset: {lucky_number: 1}})
+uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:21
+> db.students.update({},{$unset: {lucky_number: 1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "belts_earned" : 1 }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({},{$unset: {lucky_number: 1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({},{$unset: {lucky_number: 2}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({},{$unset: {lucky_number: 2}}, true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "belts_earned" : 1 }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+> db.students.update({},{$unset: {updated_on: new Date()}}, true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.students.update({},{$set: {updated_on: new Date()}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.students.find()
+{ "_id" : ObjectId("61d7aab956cce3156964792a"), "name" : "Konny Estevez", "home_state" : "Pichincha", "birthday" : { "month" : 8, "day" : 31, "year" : 1976 }, "interests" : [ [ "codificación", "brunch", "MongoDB" ], [ "codificación", "brunch", "MongoDB" ], "Python" ], "belts_earned" : 1, "updated_on" : ISODate("2022-01-07T06:33:17.127Z") }
+{ "_id" : ObjectId("61d7ab0856cce3156964792b"), "name" : "Anna Najera", "home_state" : "Riobamba", "lucky_number" : 31, "birthday" : { "month" : 6, "day" : 5, "year" : 1975 }, "interests" : [ "Netflix" ] }
+>
