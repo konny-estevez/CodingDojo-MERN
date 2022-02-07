@@ -31,10 +31,10 @@ export default props => {
                     initialFirstName={person.firstName}
                     initialLastName={person.lastName}
                 />
-                <DeleteButton personId={person._id} successCallback={() => navigate("/people")} />
+                <DeleteButton personId={person._id} successCallback={() => navigate("/")} />
             </>)}
             <br/>
-            <Link to={"/people/" + id}>
+            <Link to={"/" + id}>
                 Detalles                        
             </Link>
         </div>

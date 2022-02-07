@@ -17,9 +17,9 @@ export default props => {
             <p>Created At: {person.createdAt}</p>
             <p>Updated At: {person.updatedAt}</p>
             <br/>
-            <Link to={"/people/" + person._id + "/edit"}>
+            <Link to={"/" + person._id + "/edit"}>
                 Edit
-            </Link> | <Link to={"/people"} >List</Link>
+            </Link> | <Link to={"/"} >List</Link>
         </div>
     )
 }

@@ -20,9 +20,9 @@ export default props => {
             {people.map((person, idx) => {
                 return (
                     <p key={idx}>
-                        <Link to={"/people/" + person._id}>
+                        <Link to={"/" + person._id}>
                             {person.lastName}, {person.firstName}
-                        </Link>  |  <Link to={"/people/" + person._id + "/edit"}>
+                        </Link>  |  <Link to={"/" + person._id + "/edit"}>
                             Edit
                         </Link>  |  <DeleteButton personId={person._id} successCallback={()=>removeFromDom(person._id)}/>
                     </p>
