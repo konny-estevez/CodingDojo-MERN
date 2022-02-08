@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import ProductApi from './ProductsApi';
+import {Link} from '@reach/router';
+import ProductsApi from './ProductsApi';
 
 export const ProductForm = () => {
     const [title, setTitle] = useState('');
@@ -30,7 +31,7 @@ export const ProductForm = () => {
             price: price,
             description: description, 
         }
-        const createdProduct = await ProductApi.create(product);
+        const createdProduct = await ProductsApi.create(product);
         if (createdProduct.errors) {
             setErrors("Errors: " + createdProduct.message);
         }
@@ -68,6 +69,9 @@ export const ProductForm = () => {
         <br/>
         <div className="input-group mb-3">
             <button className="btn btn-secondary">Submit</button>
+        </div>
+        <div  className="input-group mb-3">
+            <Link to="/Products/" className="btn btn-secondary">Product List</Link>
         </div>
       </form>
   </div>;
