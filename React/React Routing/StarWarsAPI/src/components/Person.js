@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 
 export const Person = ({id}) => {
-    const [person, setPerson] = useState();
-    const [homeworld, setHomeworld] = useState();
+    const [person, setPerson] = useState('');
+    const [homeworld, setHomeworld] = useState('');
 
     useEffect(() => {
         fetch(`https://swapi.dev/api/people/${id}`)

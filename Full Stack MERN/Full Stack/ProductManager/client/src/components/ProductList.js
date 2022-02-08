@@ -1,19 +1,8 @@
-import React, { useEffect, useState } from 'react';
 import {Link} from '@reach/router';
-import ProductsApi from './ProductsApi';
 
-export const ProductList = () => {
-    const [products, setProducts] = useState([]);
-    const [count, setCount] = useState(0);
+import {ProductDelete} from './ProductDelete';
 
-    useEffect(async () => {
-        let data;
-        await ProductsApi.getAll()
-            .then(response => data = response)
-            .catch(error => error);
-        setProducts(data.results);
-        setCount(data.count);
-    }, []);
+export const ProductList = ({products, setProducts, updateList}) => {
 
   return <div>
       <h1>Products List</h1>
@@ -21,6 +10,8 @@ export const ProductList = () => {
       <Link to="/Products/New" className="btn btn-secondary">New Product</Link>
       <br/>
       <br/>
-      <ul>{products && products.map((item,i) => <li key={i}><Link to={"/Products/"+item._id}>{item.title}</Link></li>)}</ul>
+      {products && products.map((item,i) => <p key={i}><Link to={"/Products/"+item._id}>{item.title}
+        </Link> | <ProductDelete id={item._id} callback={updateList} />
+      </p>)}
   </div>;
 };

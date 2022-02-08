@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export const Resources = ({result, setResult}) => {
     const [resourceId, setResourceId] = useState('');
     const [idError, setIdError] = useState('');
-    const [apiError, setApiError] = useState();
+    const [apiError, setApiError] = useState('');
     let cbxResources = document.getElementById('cbxResources');
 
     const categories = [

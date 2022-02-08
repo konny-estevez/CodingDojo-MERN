@@ -5,12 +5,12 @@ import { Person } from './components/Person';
 import { Resources } from './components/Resources';
 
 function App() {
-  const [resource, setReource] = useState();
+  const [resource, setResource] = useState('');
   
   return (
     <div className="container">
       <Router>
-        <Resources path="/" result={resource} setResult={setReource} />
+        <Resources path="/" result={resource} setResult={setResource} />
         <Person path="/:id" />
       </Router>
     </div>

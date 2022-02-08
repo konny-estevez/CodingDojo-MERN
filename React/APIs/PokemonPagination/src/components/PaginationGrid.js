@@ -4,7 +4,7 @@ import {Link} from '@reach/router';
 
 export const PaginationGrid = (props) => {
     const {title, currentPage, setCurrentPage} = props;
-    const [results, setResults] = useState();
+    const [results, setResults] = useState({});
     const [itemCount, setItemCount] = useState(0);
     const [pageSize, setPageSize] = useState(100);
     const [pagesArray, setPagesArray] = useState([]);

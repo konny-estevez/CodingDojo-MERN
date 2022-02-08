@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link, navigate} from '@reach/router';
 import ProductsApi from './ProductsApi';
+import { ProductDelete } from './ProductDelete';
 
-export const ProductDetail = ({id, isEdit}) => {
+export const ProductDetail = ({id, isEdit, updateList}) => {
     const [product, setProduct] = useState({});
 
-    //console.log("isEdit", isEdit);
     useEffect(() => {
        ProductsApi.get(id)
             .then(response => setProduct(response))
@@ -42,10 +42,12 @@ export const ProductDetail = ({id, isEdit}) => {
         </div>
         </> :''}
         <div className="input-group mb-3">
-            <Link className="btn btn-secondary" to={"/Products/" + product._id + "/edit"}>Edit</Link>
+            <Link className="btn btn-secondary" to={"/Products/" + product._id + "/edit"}>Edit
+            </Link> | <Link className="btn btn-secondary" to="/Products">Back to List
+            </Link> | <ProductDelete id={product._id} callback={updateList} />
         </div>
         <div className="input-group mb-3">
-            <Link className="btn btn-secondary" to="/Products">Back to List</Link>
+            
         </div>
   </div>;
 };

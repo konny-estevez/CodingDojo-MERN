@@ -6,7 +6,7 @@ import DeleteButton from '../components/DeleteButton';
 
 export default props => {
     const { id } = props;
-    const [person, setPerson] = useState();
+    const [person, setPerson] = useState({});
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
