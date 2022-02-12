@@ -1,0 +1,109 @@
+{
+    "bootcamps" : [ {
+      "id" : "MERN-NOV-2021",
+      "name" : "MERN Noviembre 2021"
+    } ],
+    "students" : [ {
+      "email" : "ernesto.aviles@udla.edu.ec",
+      "name" : "ERNESTO ANTONIO AVILES ZAVALA"
+    }, {
+      "email" : "jorge.cajamarca@udla.edu.ec",
+      "name" : "JORGE ANDRES CAJAMARCA PEÑAFIEL"
+    }, {
+      "email" : "jean.ramirez@udla.edu.ec",
+      "name" : "JEAN PIERRE RAMIREZ CEVALLOS"
+    }, {
+      "email" : "pedro.valladares@udla.edu.ec",
+      "name" : "PEDRO ESTEBAN VALLADARES ROMERO"
+    }, {
+      "email" : "javier.villegas@udla.edu.ec",
+      "name" : "JAVIER ALEXANDER VILLEGAS NARANJO"
+    }, {
+      "email" : "mario.rodriguez.benavides@udla.edu.ec",
+      "name" : "MARIO GABRIEL RODRIGUEZ BENAVIDES"
+    }, {
+      "email" : "evelin.jami@udla.edu.ec",
+      "name" : "EVELIN PAMELA JAMI FUEL"
+    }, {
+      "email" : "germanico.ruiz@udla.edu.ec",
+      "name" : "GERMANICO VINICIO RUIZ PEREZ"
+    }, {
+      "email" : "edgar.villacres@udla.edu.ec",
+      "name" : "EDGAR JAVIER VILLACRES VENEGAS"
+    }, {
+      "email" : "anthony.palma@udla.edu.ec",
+      "name" : "ANTHONY MOISES PALMA ESCOBAR"
+    }, {
+      "email" : "peter.torres@udla.edu.ec",
+      "name" : "PETER STEVEN TORRES ROMERO"
+    }, {
+      "email" : "santiago.gualotuna@udla.edu.ec",
+      "name" : "SANTIAGO JOSE GUALOTUÑA TOPON"
+    } ],
+    "tasks" : [ {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-01",
+      "name" : "Predecir la desestructuración"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-02",
+      "name" : "Convertir a flecha"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-03",
+      "name" : "Super Ninja"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-04",
+      "name" : "Primer React con JSX"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-05",
+      "name" : "Poniendo todo junto"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-06",
+      "name" : "Más formularios"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-07",
+      "name" : "Lista de quehaceres"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-08",
+      "name" : "API de Axios Pokemon"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-09",
+      "name" : "Luke APIwalker"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-10",
+      "name" : "API falsa"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-11",
+      "name" : "API de bromas"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-12",
+      "name" : "Administrador de Producto (Parte II)"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-13",
+      "name" : "Administrador de Producto (Parte III)"
+    }, {
+      "bootcampId" : "MERN-NOV-2021",
+      "id" : "MERN-14",
+      "name" : "Autores"
+    } ],
+    "users" : [ {
+      "createdAt" : "2021-04-26",
+      "isAdmin" : true,
+      "name" : "Konny Denysse Estévez",
+      "password" : "",
+      "updatedAt" : "2022-02-08",
+      "username" : "konny.estevez@gmail.com"
+    } ]
+  }
+  
