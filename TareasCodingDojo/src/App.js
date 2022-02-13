@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { ForgotPasswordForm } from './components/ForgotPasswordForm';
 import { StudentBootcamp } from './components/StudentBootcamp';
 import { StudentsList } from './components/StudentsList';
-import { StudentDetail } from './components/StudentDetail';
 import { StudentForm } from './components/StudentForm';
 import { NavBar } from './components/NavBar';
 
@@ -27,7 +26,7 @@ function App() {
         <SplashScreen path="/home" user={user}/>
         <StudentsList path="/students" user={user}/>
         <StudentForm path="/students/new" user={user} />
-        <StudentDetail path="/students/:student" user={user} />
+        <StudentForm path="/students/:editId" user={user} />
         <StudentBootcamp path="/student/bootcamp"/>
         <CreateCommentForm path="/comments/new" />
       </Router>

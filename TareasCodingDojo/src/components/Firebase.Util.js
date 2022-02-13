@@ -3,10 +3,6 @@ import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
 import { getDatabase, ref, set, child, get } from 'firebase/database';
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: "AIzaSyCiEBKmpAvJnNJirWi8LeFU96V_KnhfEZU",
@@ -55,35 +51,6 @@ const closeSession = async () => {
   return result;
 }
 
-const getStudents = async () => {
-  let result;
-  await get(child(databaseRef, "students")).then((snapshot) => {
-    if (snapshot.exists()) {
-      result = snapshot.val();
-    } else {
-      result = "No existen datos.";
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-  return result;
-}
-
-const getStudentByEmail = (email) => {
-  let result;
-  get(child(databaseRef, `students`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      result = snapshot.val().filter(item => item.email === email);
-      return result;
-    } else {
-      result = [];
-      return result;
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-}
-
 const verifyRegisterStudent = async (email, password) => {
   const result = await get(child(databaseRef, 'students'));
   if (result.exists()) {
@@ -120,6 +87,76 @@ const verifyRegisterStudent = async (email, password) => {
   }
 }
 
-export const FirebaseUtil = {registerUser, validateUser: signInUser, getStudents, getStudent: getStudentByEmail, verifyRegisterStudent,
-  resetPassword, signOut: closeSession
+const getStudents = async () => {
+  let result;
+  await get(child(databaseRef, "students")).then((snapshot) => {
+    if (snapshot.exists()) {
+      result = snapshot.val();
+    } else {
+      result = "No existen datos.";
+    }
+  }).catch(error => result = error);
+  return result;
+}
+
+const getStudentByEmail = (email) => {
+  let result;
+  get(child(databaseRef, 'students')).then((snapshot) => {
+    if (snapshot.exists()) {
+      result = snapshot.val().filter(item => item.email === email);
+      return result;
+    } else {
+      result = [];
+      return result;
+    }
+  }).catch((error) => result = error);
+  return result;
+}
+
+const getStudent = async (id) => {
+  let result;
+  await get(child(databaseRef, 'students/' + id)).then((snapshot) => {
+    if (snapshot.exists()) {
+      result = snapshot.val();
+      return result;
+    }
+    else {
+      result = [];
+      return result;
+    }
+  })
+  .catch(error => result = error);
+  return result;
+}
+
+const updateStudent = async (id, student) => {
+  let result;
+  console.log("Metodo updateStudent");
+  if (!student.id) {
+    const response = await createUserWithEmailAndPassword(getAuth(), student.email, "12345678");
+    student.id = response.user.uid;
+    student.active = true;
+    id = student.id;
+  }
+  const studentRef = ref(getDatabase(), 'students/' + id);
+  await set(studentRef, student)
+    .then(response => result = response)
+    .catch(error => error);
+  return student;
+}
+
+const deleteStudent = (id) => {
+  try {
+    const studentRef = ref(getDatabase(), 'students/' + id);
+    set(studentRef, null);
+    console.log("Elemento eliminado");
+    return true;
+  }
+  catch(error ) {
+    return false;
+  }
+}
+
+export const FirebaseUtil = {registerUser, signInUser, getStudents, getStudentByEmail, verifyRegisterStudent,
+  resetPassword, closeSession, getStudent, updateStudent, deleteStudent
 };

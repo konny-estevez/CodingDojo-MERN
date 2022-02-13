@@ -3,7 +3,7 @@ import {Link, navigate} from '@reach/router';
 import { FirebaseUtil } from './Firebase.Util';
 
 export const NavBar = ({user, setUser}) => {
-    console.log("User en Navbar:", user);
+    //console.log("User en Navbar:", user);
     let isAdmin = user.email &&  user.email === "konny.estevez@gmail.com" ? true : false;
     let isStudent = user.email && user.email !== "konny.estevez@gmail.com" ? true : false;
     isStudent = true;
@@ -14,7 +14,7 @@ export const NavBar = ({user, setUser}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-         FirebaseUtil.signOut();
+         FirebaseUtil.closeSession();
         setUser({});
         navigate("/");
     }

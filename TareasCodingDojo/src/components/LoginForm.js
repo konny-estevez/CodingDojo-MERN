@@ -28,7 +28,7 @@ export const LoginForm = ({setUser}) => {
       else {
         let result = {};
         setErrors('');
-        await FirebaseUtil.validateUser(username, password)
+        await FirebaseUtil.signInUser(username, password)
           .then(response => result = response)
           .catch(error => result = error);
         if (result && result.user) {

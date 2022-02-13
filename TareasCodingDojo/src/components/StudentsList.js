@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import {Link} from '@reach/router';
 import {FirebaseUtil} from './Firebase.Util';
 import './styles.css';
+import { DeleteButton } from './DeleteButton';
 
 export const StudentsList = ({user}) => {
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState({});
     const [errors, setErrors] = useState('');
+    const [deleteId, setDeleteId] = useState('');
 
     useEffect(() => {
       const getData = async () => {
           await FirebaseUtil.getStudents()
             .then(response => {
-                if (Array.isArray(response)) {
+                if (typeof(response) === "object") {
+                    setErrors('');
                     setStudents(response);
                 }
                 else {
@@ -21,7 +24,7 @@ export const StudentsList = ({user}) => {
             .catch(error => setErrors(error));
         }
         getData();
-    }, [])
+    }, [deleteId]);
     
   return (
     <div>
@@ -38,16 +41,20 @@ export const StudentsList = ({user}) => {
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Activo</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                {students && students.map((student, i) => <tr key={i}>
+                {students && Object.keys(students).map((keyName,i) => 
+                  <tr key={i}>
                     <td>{i+1}</td>
-                    <td><Link to={"/students/"+ student.id}>{student.id}</Link></td>
-                    <td>{student.name}</td>
-                    <td>{student.email}</td>
-                    <td><input type="checkbox" checked={student.active} onChange={() => false} /></td>
-                </tr>)}
+                    <td><Link to={"/students/"+ keyName}>{keyName}</Link></td>
+                    <td>{students[keyName].name}</td>
+                    <td>{students[keyName].email}</td>
+                    <td><input type="checkbox" checked={students[keyName].active} onChange={() => false} /></td>
+                    <td><DeleteButton id={keyName} collection={"students"} setDeleteId={setDeleteId}/></td>
+                </tr>)
+                }
             </tbody>
         </table>
     </div>
