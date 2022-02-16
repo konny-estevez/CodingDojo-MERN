@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from '@reach/router';
-import {FirebaseUtil} from './Firebase.Util';
-import './styles.css';
-import { DeleteButton } from './DeleteButton';
+import {FirebaseUtil} from '../Utils/Firebase.Util';
+import '../Utils/styles.css';
+import { DeleteButton } from '../Utils/DeleteButton';
+import { UpdateIdButton } from '../Utils/UpdateIdButton';
 
 export const StudentsList = ({user}) => {
     const [students, setStudents] = useState({});
     const [errors, setErrors] = useState('');
-    const [deleteId, setDeleteId] = useState('');
+    const [updateId, setUpdateId] = useState('');
 
     useEffect(() => {
       const getData = async () => {
@@ -24,7 +25,7 @@ export const StudentsList = ({user}) => {
             .catch(error => setErrors(error));
         }
         getData();
-    }, [deleteId]);
+    }, [updateId]);
     
   return (
     <div>
@@ -36,12 +37,12 @@ export const StudentsList = ({user}) => {
         <table className="table table-striped">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Activo</th>
-                    <th></th>
+                    <th className="text-center">No.</th>
+                    <th className="text-center">Id</th>
+                    <th className="text-center">Nombre</th>
+                    <th className="text-center">Email</th>
+                    <th className="text-center">Activo</th>
+                    <th className="text-center">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +53,9 @@ export const StudentsList = ({user}) => {
                     <td>{students[keyName].name}</td>
                     <td>{students[keyName].email}</td>
                     <td><input type="checkbox" checked={students[keyName].active} onChange={() => false} /></td>
-                    <td><DeleteButton id={keyName} collection={"students"} setDeleteId={setDeleteId}/></td>
+                    <td><DeleteButton id={keyName} collection={"students"} setDeleteId={setUpdateId}/>
+                        <UpdateIdButton id={keyName} collection={"students"} setUpdateId={setUpdateId}/>
+                    </td>
                 </tr>)
                 }
             </tbody>

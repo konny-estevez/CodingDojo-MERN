@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import {Link} from '@reach/router';
-import {FirebaseUtil} from './Firebase.Util';
-import './styles.css';
+import {FirebaseUtil} from '../Utils/Firebase.Util';
+import '../Utils/styles.css';
 
 export const ForgotPasswordForm = () => {
     const [username, setUsername] = useState('');

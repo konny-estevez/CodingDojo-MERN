@@ -1,16 +1,9 @@
 import React from 'react';
 import {Link, navigate} from '@reach/router';
-import { FirebaseUtil } from './Firebase.Util';
+import { FirebaseUtil } from '../Utils/Firebase.Util';
 
-export const NavBar = ({user, setUser}) => {
-    //console.log("User en Navbar:", user);
-    let isAdmin = user.email &&  user.email === "konny.estevez@gmail.com" ? true : false;
-    let isStudent = user.email && user.email !== "konny.estevez@gmail.com" ? true : false;
-    isStudent = true;
-    console.log(isAdmin, isStudent);
-    if (!isAdmin && !isStudent) {
-        //navigate("/");
-    }
+export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
+        //console.log("Componente Navbar", isAdmin, isStudent);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,6 +23,9 @@ export const NavBar = ({user, setUser}) => {
                     </li> : ''}
                 { isAdmin ? <>
                     <li className="nav-item">
+                        <Link to="/resetUsers" className="nav-link" >Resetear Usuarios</Link>
+                    </li>
+                    <li className="nav-item">
                         <Link to="/students" className="nav-link" >Estudiantes</Link>
                     </li>
                     <li className="nav-item">
@@ -39,7 +35,7 @@ export const NavBar = ({user, setUser}) => {
                         <Link to="/tasks" className="nav-link" >Tareas</Link>
                     </li>
                     <li className="nav-item">
-                        <Link to="/comments" className="nav-link" >Comentarios</Link>
+                        <Link to="/reviews" className="nav-link" >Revisiones</Link>
                     </li>
                 </>: ''}
                 {isStudent ? 

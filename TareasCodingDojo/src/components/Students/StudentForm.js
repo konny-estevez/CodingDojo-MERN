@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from '@reach/router';
-import {FirebaseUtil} from './Firebase.Util';
-import './styles.css';
-import { DeleteButton } from './DeleteButton';
+import {FirebaseUtil} from '../Utils/Firebase.Util';
+import '../Utils/styles.css';
+import { DeleteButton } from '../Utils/DeleteButton';
 
 export const StudentForm = ({editId, user}) => {
   const [id, setId] = useState('');
@@ -10,6 +10,7 @@ export const StudentForm = ({editId, user}) => {
   const [email, setEmail] = useState('');
   const [active, setActive] = useState(false);
   const [errors, setErrors] = useState('');
+  const [newSaved, setNewSaved] = useState(false);
   const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
   useEffect(() => {
@@ -20,7 +21,7 @@ export const StudentForm = ({editId, user}) => {
           .then(response => result = response)
           .catch(error => setErrors(error));
         if (result && typeof(result) === "object") {
-          setId(result.id);
+          setId(editId);
           setName(result.name);
           setEmail(result.email);
           setActive(result.active);
@@ -28,7 +29,7 @@ export const StudentForm = ({editId, user}) => {
       }
     };
     getData();
-  },[editId]);
+  },[id,editId]);
 
   const handleChange = (e) => {
     switch(e.target.name) {
@@ -57,7 +58,6 @@ export const StudentForm = ({editId, user}) => {
       }
       setErrors('');
       const student = {
-        id: editId,
         name: name,
         email: email,
         active: active,
@@ -69,6 +69,7 @@ export const StudentForm = ({editId, user}) => {
         setEmail(result.email);
         setActive(result.active);
         setErrors("Estudiante guardado existosamente.");
+        setNewSaved(true);
       }
       else {
         setErrors(result);
@@ -93,10 +94,9 @@ export const StudentForm = ({editId, user}) => {
           </div>
           {!errors ? '' : <div className="text-danger">{errors}</div> }
           <br/>
-          <button className="btn btn-primary" type="submit">Guardar
-          </button>
-         </form> { id ? <DeleteButton id={id} collection={"students"} />   : ''}
-         | <Link to="/students" className="btn btn-primary">Regresar a Lista</Link>
+          { !newSaved || editId === id ? <button className="btn btn-primary" type="submit">Guardar</button> : '' }
+         </form> { id ? <DeleteButton id={id} collection={"students"} showSeparator={true}/>   : ''}
+         <Link to="/students" className="btn btn-primary">Regresar a Lista</Link>
     </div>
   )
 }

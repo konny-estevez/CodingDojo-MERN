@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {Link, navigate} from '@reach/router';
-import {FirebaseUtil} from './Firebase.Util';
-import './styles.css';
+import {FirebaseUtil} from '../Utils/Firebase.Util';
+import '../Utils/styles.css';
 
-export const LoginForm = ({setUser}) => {
+export const LoginForm = ({setUser,isAdmin,isStudent}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
+
+  useEffect(() => {
+      if (isAdmin || isStudent) {
+        console.log("Redirect to home");
+        navigate("/home");
+      }
+  }, [isAdmin,isStudent]);  
 
   const handleChange = (e) => {
     switch(e.target.name) {
@@ -33,6 +40,8 @@ export const LoginForm = ({setUser}) => {
           .catch(error => result = error);
         if (result && result.user) {
           setUser(result.user);
+          //localStorage.setItem("coding-dojo-tasks", result.user.uid);
+          localStorage.setItem("coding-dojo-tasks", JSON.stringify(result.user));
           navigate("/home", result.user);
         }
         else if (result && result.code) {
