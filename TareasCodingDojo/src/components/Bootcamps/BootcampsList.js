@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 import { UpdateIdButton } from '../Utils/UpdateIdButton';
 
-export const BootcampsList = ({user}) => {
+export const BootcampsList = ({isAdmin}) => {
     const [bootcamps, setBootcamps] = useState({});
     const [errors, setErrors] = useState('');
     const [updateId, setUpdateId] = useState('');
 
     useEffect(() => {
+        if (!isAdmin) {
+            navigate("/home");
+            return;
+        }
+    
         const getData = () => {
             FirebaseUtil.getBootcamps()
               .then(response => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 import { UpdateIdButton } from '../Utils/UpdateIdButton';
 
-export const ReviewsList = ({user}) => {
+export const ReviewsList = ({isAdmin}) => {
     const [reviews, setReviews] = useState({});
     const [errors, setErrors] = useState('');
     const [updateId, setUpdateId] = useState('');
@@ -14,6 +14,11 @@ export const ReviewsList = ({user}) => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
+        if (!isAdmin) {
+            navigate("/home");
+            return;
+          }
+    
       const getData = async () => {
           await FirebaseUtil.getReviews()
             .then(response => {
@@ -55,8 +60,6 @@ export const ReviewsList = ({user}) => {
     <br/>
     <h2 className="text-center">Lista de Revisiones</h2>
     {!errors ? '' : <div className="text-danger">{errors}</div> }
-    {//JSON.stringify(students)
-    }
     <table className="table table-striped">
         <thead>
             <tr>
@@ -67,6 +70,7 @@ export const ReviewsList = ({user}) => {
                 <th className="text-center">Tarea</th>
                 <th className="text-center">Completada</th>
                 <th className="text-center">Fecha Creación</th>
+                <th className="text-center">Fecha Actualización</th>
                 <th className="text-center">Acciones</th>
             </tr>
         </thead>
@@ -80,6 +84,7 @@ export const ReviewsList = ({user}) => {
                 <td>{tasks.length > 0 && tasks.find(item => item.id === reviews[keyName].taskId).name}</td>
                 <td className="text-center"><input type="checkbox" checked={reviews[keyName].taskCompleted} onChange={() => false} /></td>
                 <td>{reviews[keyName].createdAt.substring(0,10)}</td>
+                <td>{reviews[keyName].updatedAt ? reviews[keyName].updatedAt.substring(0,10) : ''}</td>
                 <td><DeleteButton id={keyName} collection={"reviews"} setDeleteId={setUpdateId} /> 
                     <UpdateIdButton id={keyName} collection={"reviews"} setUpdateId={setUpdateId}/>
                 </td>
@@ -87,6 +92,6 @@ export const ReviewsList = ({user}) => {
             }
         </tbody>
     </table>
-</div>
+    </div>
   )
 }

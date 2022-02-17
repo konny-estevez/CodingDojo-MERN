@@ -9,6 +9,7 @@ export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
         e.preventDefault();
          FirebaseUtil.closeSession();
         setUser({});
+        localStorage.removeItem("coding-dojo-tasks");
         navigate("/");
     }
 
@@ -40,7 +41,7 @@ export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
                 </>: ''}
                 {isStudent ? 
                     <li className="nav-item">
-                        <Link to="/tasks/student" className="nav-link">Tareas</Link> 
+                        <Link to={"/reviews/student/"+ user.uid} className="nav-link">Revisión Tareas</Link> 
                     </li>: ''}
                 </ul>
             </div>  

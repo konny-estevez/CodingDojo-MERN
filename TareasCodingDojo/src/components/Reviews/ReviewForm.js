@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 
-export const ReviewForm = ({editId, user}) => {
+export const ReviewForm = ({editId, isAdmin}) => {
   const [id, setId] = useState('');
   const [bootcamps, setBootcamps] = useState([]);
   const [bootcampId, setBootcampId] = useState('');
@@ -22,7 +22,11 @@ export const ReviewForm = ({editId, user}) => {
   const [createdAt, setCreatedAt] = useState('');
 
   useEffect(() => {
-    console.log("Ejecuta useEffect", new Date());
+    if (!isAdmin) {
+      navigate("/home");
+      return;
+    }
+
     const getData = async () => {
         let result = await FirebaseUtil.getBootcamps();
         let tempBootcamps = [];
@@ -143,7 +147,7 @@ return (
   <div className="text-center">
       <br/>
       <form className="form-signin" onSubmit={handleSubmit}>
-        <h2 className="h3 mb-3 font-weight-normal">{!editId ? "Nuevo Comentario" : "Edición Comentario"}</h2>
+        <h2 className="h3 mb-3 font-weight-normal">{!editId ? "Nuevo Revisión" : "Edición Revisión"}</h2>
         <label htmlFor="id" className="sr-only">Id</label>
         <input type="text" name="id" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
         
@@ -185,5 +189,5 @@ return (
        </form> { id ? <DeleteButton id={id} collection={"reviews"} showSeparator={true} />   : ''}
        <Link to="/reviews" className="btn btn-primary">Regresar a Lista</Link>
   </div>
-)
+  )
 }

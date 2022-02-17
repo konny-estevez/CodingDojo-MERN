@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 import { BootcampStudents } from './BootcampStudents';
 import { BootcampTasks } from './BootcampTasks';
 
-export const BootcampForm = ({editId, user}) => {
+export const BootcampForm = ({editId, isAdmin}) => {
     const [id, setId] = useState('');
     const [name, setName] = useState('');
     const [code, setCode] = useState('');
@@ -15,6 +15,11 @@ export const BootcampForm = ({editId, user}) => {
     const [newSaved, setNewSaved] = useState(false);
 
     useEffect(() => {
+      if (!isAdmin) {
+        navigate("/home");
+        return;
+      }
+
         const getData = async () => {
           if (editId) {
             let result;

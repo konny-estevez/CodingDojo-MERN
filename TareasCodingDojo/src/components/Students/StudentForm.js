@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 
-export const StudentForm = ({editId, user}) => {
+export const StudentForm = ({editId, isAdmin}) => {
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -14,7 +14,12 @@ export const StudentForm = ({editId, user}) => {
   const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
 
   useEffect(() => {
-    const getData = async () => {
+    if (!isAdmin) {
+      navigate("/home");
+      return;
+  }
+
+  const getData = async () => {
       if (editId) {
         let result;
         await FirebaseUtil.getStudent(editId)

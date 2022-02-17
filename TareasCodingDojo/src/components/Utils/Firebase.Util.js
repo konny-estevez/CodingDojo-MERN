@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 //import { getAnalytics } from "firebase/analytics";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
-import { getDatabase, ref, set, child, get, push } from 'firebase/database';
+import { getDatabase, ref, set, child, get, push, query, equalTo, limitToFirst, orderByChild } from 'firebase/database';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -412,17 +412,46 @@ const deleteTask = (id) => {
   }
 }
 
-const getReviews = async () => {
+const getReviews = async (studentId) => {
   let result;
-  await get(child(databaseRef, "reviews")).then((snapshot) => {
-    if (snapshot.exists()) {
-      result = snapshot.val();
-    } else {
-      result = "No existen datos.";
-    }
+  if (studentId) {
+    //console.log("Get reviews filtradas:", studentId);
+    let reviewsRef = ref(getDatabase(), "reviews");
+    //console.log(reviewsRef);
+    let querys = child(databaseRef, "reviews");
+    //querys = query(reviewsRef, limitToFirst(4));//.orderByChild("studentId");//, ]);
+    //querys = query(reviewsRef, equalTo(studentId, "reviews/studentId"));
+    //console.log(querys);
+    //equalTo(studentId, "studentId"));
+    await get(querys).then((snapshot) => {
+      if (snapshot.exists()) {
+        result = snapshot.val();
+        let data = result;
+        Object.keys(result).map(key => 
+         { if (result[key].studentId !== studentId){
+          delete data[key];
+          }});
+        result = data;
+      } else {
+        result = "No existen datos.";
+      }
+      return result;
+    })
+    .catch(error => result = error);
     return result;
-  }).catch(error => result = error);
-  return result;
+  }
+  else {
+    await get(child(databaseRef, "reviews")).then((snapshot) => {
+      if (snapshot.exists()) {
+        result = snapshot.val();
+      } else {
+        result = "No existen datos.";
+      }
+      return result;
+    })
+    .catch(error => result = error);
+    return result;
+  }
 }
 
 const getReview = async (id) => {
@@ -456,13 +485,50 @@ const updateReview = async (id, review) => {
   return review;
 }
 
-const updateStudentReview = (id, Review) => {
-
-}
-
 const deleteReview = (id) => {
   try {
     const itemRef = ref(getDatabase(), 'Review/' + id);
+    set(itemRef, null);
+    return true;
+  }
+  catch(error ) {
+    return false;
+  }
+}
+
+const getComments = async (reviewId) => {
+  let result = [];
+  await get(child(databaseRef, "reviews/"+ reviewId)).then(snapshot => {
+      if (snapshot.exists()) {
+        result = snapshot.val();
+        //result.id = id;
+        return result;
+      }
+      else {
+        result = [];
+        return result;
+      }
+    })
+    .catch(error => error);
+  return result;
+}
+
+const updateComment = async (id, comment, reviewId) => {
+  if (!id) {
+    const newKey = push(child(ref(getDatabase()), 'reviews/'+ reviewId)).key;
+    id = newKey;
+  }
+  const itemRef = ref(getDatabase(), `reviews/${reviewId}/${id}`);
+  await set(itemRef, comment)
+    .then(response => response)
+    .catch(error => error);
+    comment.id = id;
+  return comment;
+}
+
+const deleteComment = (id, reviewId) => {
+  try {
+    const itemRef = ref(getDatabase(), `reviews/${reviewId}/${id}`);
     set(itemRef, null);
     return true;
   }
@@ -476,5 +542,6 @@ export const FirebaseUtil = {registerUser, signInUser, resetUsers, verifyRegiste
   getBootcamps, getBootcamp, updateBootcampId, updateBootcamp, deleteBootcamp, getBootcampStudents, updateBootcampStudents,
   getBootcampTasks, updateBootcampTasks,
   getTasks, getTask, updateTaskId, updateTask, deleteTask,
-  getReviews, getReview, updateReview, deleteReview, updateStudentReview
+  getReviews, getReview, updateReview, deleteReview, 
+  getComments, updateComment, deleteComment,
 };

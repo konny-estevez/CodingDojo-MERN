@@ -1,17 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from '@reach/router';
+import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 import { UpdateIdButton } from '../Utils/UpdateIdButton';
 
-export const StudentsList = ({user}) => {
+export const StudentsList = ({isAdmin}) => {
     const [students, setStudents] = useState({});
     const [errors, setErrors] = useState('');
     const [updateId, setUpdateId] = useState('');
 
     useEffect(() => {
-      const getData = async () => {
+        if (!isAdmin) {
+            navigate("/home");
+            return;
+        }
+    
+          const getData = async () => {
           await FirebaseUtil.getStudents()
             .then(response => {
                 if (typeof(response) === "object") {

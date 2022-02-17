@@ -16,6 +16,8 @@ import { BootcampForm } from './components/Bootcamps/BootcampForm';
 import { TasksForm } from './components/Tasks/TasksForm';
 import { ReviewForm } from './components/Reviews/ReviewForm';
 import { NotFoundPage} from './components/Utils/NotFoundPage';
+import { ReviewsStudentList } from './components/Reviews/ReviewsStudentList';
+import { ReviewStudentForm } from './components/Reviews/ReviewStudentForm';
 
 function App() {
   const [user, setUser] = useState({});
@@ -30,6 +32,7 @@ function App() {
         .then(response => setUser(response))
         .catch(error => error);*/
       setUser(user);
+      //console.log(uid);
       const admin = user.email &&  user.email === "konny.estevez@gmail.com" ? true : false;
       const student = user.email && user.email !== "konny.estevez@gmail.com" ? true : false;
       setIsAdmin(admin);
@@ -50,21 +53,23 @@ function App() {
         <LoginForm path="/" setUser={setUser} isAdmin={isAdmin} isStudent={isStudent}/>
         <RegisterForm path="/register" />
         <ForgotPasswordForm path="/forgotPassword" />
-        <ResetUsers path="/resetUsers" user={user} />
-        <SplashScreen path="/home" user={user}/>
-        <StudentsList path="/students" user={user}/>
-        <StudentForm path="/students/new" user={user} />
-        <StudentForm path="/students/:editId" user={user} />
-        <StudentBootcamp path="/student/bootcamp"/>
-        <BootcampsList path="/bootcamps" user={user} />
-        <BootcampForm path="/bootcamps/new" user={user} />
-        <BootcampForm path="/bootcamps/:editId" user={user} />
-        <TasksList path="/tasks" user={user}/ >
-        <TasksForm path="/tasks/new" user={user} />
-        <TasksForm path="/tasks/:editId" user={user} />
-        <ReviewsList path="/reviews" user={user} />
-        <ReviewForm path="/reviews/new" user={user} />
-        <ReviewForm path="/reviews/:editId" user={user} />
+        <ResetUsers path="/resetUsers" user={user} isAdmin={isAdmin}/>
+        <SplashScreen path="/home" user={user} />
+        <StudentsList path="/students" user={user} isAdmin={isAdmin}/>
+        <StudentForm path="/students/new" user={user} isAdmin={isAdmin}/>
+        <StudentForm path="/students/:editId" user={user} isAdmin={isAdmin}/>
+        <StudentBootcamp path="/student/bootcamp" isAdmin={isAdmin}/>
+        <BootcampsList path="/bootcamps" user={user} isAdmin={isAdmin}/>
+        <BootcampForm path="/bootcamps/new" user={user} isAdmin={isAdmin}/>
+        <BootcampForm path="/bootcamps/:editId" user={user} isAdmin={isAdmin}/>
+        <TasksList path="/tasks" user={user} isAdmin={isAdmin} />
+        <TasksForm path="/tasks/new" user={user} isAdmin={isAdmin}/>
+        <TasksForm path="/tasks/:editId" user={user} isAdmin={isAdmin}/>
+        <ReviewsList path="/reviews" user={user} isAdmin={isAdmin}/>
+        <ReviewForm path="/reviews/new" user={user} isAdmin={isAdmin}/>
+        <ReviewForm path="/reviews/:editId" user={user} isAdmin={isAdmin}/>
+        <ReviewsStudentList path="reviews/student/:studentId" />
+        <ReviewStudentForm path="/reviews/student/:studentId/:reviewId" />
         <NotFoundPage default />
       </Router>
     </div>
