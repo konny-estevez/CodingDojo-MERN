@@ -30,7 +30,7 @@ export const TasksForm = ({editId, user}) => {
           }
         };
         getData();
-      },[id,editId]);
+      },[newSaved]);
 
       const handleChange = (e) => {
         switch(e.target.name) {

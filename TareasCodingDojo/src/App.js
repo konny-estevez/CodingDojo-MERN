@@ -23,7 +23,6 @@ function App() {
   const [isStudent, setIsStudent] = useState(false);
 
   useEffect(() => {
-    //console.log("Ejecuta UseEffect de App");
     const uid = localStorage.getItem("coding-dojo-tasks");
     if (uid && uid.length > 5) {
       let user = JSON.parse(uid);

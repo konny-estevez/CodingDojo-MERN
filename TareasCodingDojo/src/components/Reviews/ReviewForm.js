@@ -8,27 +8,31 @@ export const ReviewForm = ({editId, user}) => {
   const [id, setId] = useState('');
   const [bootcamps, setBootcamps] = useState([]);
   const [bootcampId, setBootcampId] = useState('');
+  const [bootcamp, setBootcamp] = useState('');
   const [tasks, setTasks] = useState([]);
   const [taskId, setTaskId] = useState('');
+  const [task, setTask] = useState('');
   const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState('');
+  const [student, setStudent] = useState('');
   const [taskCompleted, setTaskCompleted] = useState(false);
   const [firstComment, setFirstComment] = useState('');
   const [errors, setErrors] = useState('');
   const [newSaved, setNewSaved] = useState(false);
+  const [createdAt, setCreatedAt] = useState('');
 
   useEffect(() => {
-      const getData = async () => {
+    console.log("Ejecuta useEffect", new Date());
+    const getData = async () => {
         let result = await FirebaseUtil.getBootcamps();
+        let tempBootcamps = [];
         if (result && typeof(result) === "object") {
-          let temp = [];
           Object.keys(result).map((keyName,i) => {
-            temp = [...temp, {id: keyName, name: result[keyName].name}];
-            return temp;
+            tempBootcamps = [...tempBootcamps, {id: keyName, name: result[keyName].name}];
+            return tempBootcamps;
           });
-          setBootcamps(temp);
+          setBootcamps(tempBootcamps);
         }
-
         if (editId) {
           let result;
           await FirebaseUtil.getReview(editId)
@@ -36,16 +40,25 @@ export const ReviewForm = ({editId, user}) => {
             .catch(error => setErrors(error));
           if (result && typeof(result) === "object") {
             setId(result.id);
+            setCreatedAt(result.createdAt);
             setBootcampId(result.bootcampId);
             setTaskId(result.taskId);
             setStudentId(result.studentId);
             setFirstComment(result.firstComment);
             setTaskCompleted(result.taskCompleted);
+            if (Array.isArray(tempBootcamps)) {
+              let bootcamp = tempBootcamps.find(item => item.id === result.bootcampId);
+              setBootcamp(bootcamp.name);
+            }
+            let student = await FirebaseUtil.getStudent(result.studentId);
+            setStudent(student.name);
+            let task = await FirebaseUtil.getTask(result.taskId);
+            setTask(task.name);
           }
         }
       };
       getData();
-    },[id,editId]);
+    },[newSaved]);
 
     const getStudents = (bootcampId) => {
       if (bootcampId && bootcampId.length > 5) {
@@ -85,6 +98,9 @@ export const ReviewForm = ({editId, user}) => {
         case "firstComment":
           setFirstComment(e.target.value);
           break;
+        case "createdAt":
+          setCreatedAt(e.target.value);
+          break;
         default:
       }
     }
@@ -98,7 +114,8 @@ export const ReviewForm = ({editId, user}) => {
       }
       setErrors('');
       const review = {
-        createdAt: new Date().toISOString(),
+        createdAt:  id ? createdAt : new Date().toISOString(),
+        updatedAt: id ? new Date().toISOString() : '',
         bootcampId: bootcampId,
         taskId: taskId,
         studentId: studentId,
@@ -108,12 +125,13 @@ export const ReviewForm = ({editId, user}) => {
       let result = await FirebaseUtil.updateReview(editId, review);
       if (result && typeof(result) === "object") {
         setId(result.id);
+        setCreatedAt(result.createdAt);
         setBootcampId(result.bootcampId);
         setTaskId(result.taskId);
         setStudentId(result.studentId);
-        setTaskCompleted(result.finished);
+        setTaskCompleted(result.taskCompleted);
         setFirstComment(result.firstComment);
-        setErrors("Comentario guardado existosamente.");
+        setErrors("Revisión guardada existosamente.");
         setNewSaved(true);
       }
       else {
@@ -126,25 +144,33 @@ return (
       <br/>
       <form className="form-signin" onSubmit={handleSubmit}>
         <h2 className="h3 mb-3 font-weight-normal">{!editId ? "Nuevo Comentario" : "Edición Comentario"}</h2>
-        <label htmlFor="editId" className="sr-only">Id</label>
-        <input type="text" name="editId" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
-        <label htmlFor="bootcampId" className="sr-only">Bootcamp</label>
+        <label htmlFor="id" className="sr-only">Id</label>
+        <input type="text" name="id" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
+        
+        <label htmlFor="createdAt" className="sr-only">Fecha Creación</label>
+        <input type="text" name="createdAt" className="form-control" required="" onChange={handleChange} value={createdAt} readOnly/>
+
+        <label htmlFor="bootcampId" className="sr-only">Curso</label>
+        { id ? <input className="form-control" required onChange={handleChange} value={bootcamp} disabled /> : 
         <select name="bootcampId" className="form-control" required="" autoFocus="" onChange={handleChange} value={bootcampId}>
           <option key={0} value={''} disabled>[Seleccione un Bootcamp]</option>
           {bootcamps.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
-         </select> 
+         </select>}
+
          <label htmlFor="studentId" className="sr-only">Estudiante</label>
-         {id ?  <input className="form-control" required onChange={handleChange} value={studentId} disabled/> :
+         {id ?  <input className="form-control" required onChange={handleChange} value={student} disabled/> :
         <select name="studentId" className="form-control" required="" onChange={handleChange} value={studentId} >
           <option key={0} value={''} disabled>[Seleccione un Estudiante]</option>
           {students.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
         </select>}
+
         <label htmlFor="taskId" className="sr-only">Tarea</label>
-        { id ? <input className="form-control" required onChange={handleChange} value={taskId} disabled/> :
+        { id ? <input className="form-control" required onChange={handleChange} value={task} disabled/> :
         <select name="taskId" className="form-control" required="" onChange={handleChange} value={taskId} >
           <option key={0} value={''} disabled>[Seleccione una Tarea]</option>
           {tasks.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
         </select>}
+
         <br/>
         <div className="checkbox mb-3">
           <label>

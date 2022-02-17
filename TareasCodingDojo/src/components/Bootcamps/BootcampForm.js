@@ -30,7 +30,7 @@ export const BootcampForm = ({editId, user}) => {
           }
         };
         getData();
-      },[editId,id]);
+      },[newSaved]);
 
       const handleChange = (e) => {
         switch(e.target.name) {

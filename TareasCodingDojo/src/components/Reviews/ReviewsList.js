@@ -11,7 +11,7 @@ export const ReviewsList = ({user}) => {
     const [updateId, setUpdateId] = useState('');
     const [bootcamps, setBootcamps] = useState([]);
     const [students, setStudents] = useState([]);
-    const [taks, setTaks] = useState([]);
+    const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
       const getData = async () => {
@@ -32,10 +32,18 @@ export const ReviewsList = ({user}) => {
                 temp = [...temp, {id: key, name: result[key].name}];
             });
             setBootcamps(temp);
-            //MERN bootcamp
-            //-Mvojqr9mEiZ64XzB1X1
-            setTaks(await FirebaseUtil.getTasks());
-            setStudents(await FirebaseUtil.getStudents());
+            result = await FirebaseUtil.getTasks();
+            temp = [];
+            Object.keys(result).map(key => {
+                temp = [...temp, {id: key, name: result[key].name}];
+            });
+            setTasks(temp);
+            result = await FirebaseUtil.getStudents();
+            temp = [];
+            Object.keys(result).map(key => {
+                temp = [...temp, {id: key, name: result[key].name}];
+            });
+            setStudents(temp);
         }
         getData();
     }, [updateId]);
@@ -68,8 +76,8 @@ export const ReviewsList = ({user}) => {
                 <td>{i+1}</td>
                 <td><Link to={"/reviews/"+ keyName}>{keyName}</Link></td>
                 <td>{bootcamps.length > 0 && bootcamps.find(item => item.id === reviews[keyName].bootcampId).name}</td>
-                <td>{reviews[keyName].studentId}</td>
-                <td>{reviews[keyName].taskId}</td>
+                <td>{students.length > 0 && students.find(item => item.id === reviews[keyName].studentId).name}</td>
+                <td>{tasks.length > 0 && tasks.find(item => item.id === reviews[keyName].taskId).name}</td>
                 <td className="text-center"><input type="checkbox" checked={reviews[keyName].taskCompleted} onChange={() => false} /></td>
                 <td>{reviews[keyName].createdAt.substring(0,10)}</td>
                 <td><DeleteButton id={keyName} collection={"reviews"} setDeleteId={setUpdateId} /> 

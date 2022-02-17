@@ -5,13 +5,13 @@ import { getDatabase, ref, set, child, get, push } from 'firebase/database';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCiEBKmpAvJnNJirWi8LeFU96V_KnhfEZU",
-  authDomain: "codingodojotaskscontrol.firebaseapp.com",
-  projectId: "codingodojotaskscontrol",
-  storageBucket: "codingodojotaskscontrol.appspot.com",
-  messagingSenderId: "30937776932",
-  appId: "1:30937776932:web:d35bd1f43331d6b09329b1",
-  measurementId: "G-65TP953EY1"
+  apiKey: process.env.REACT_APP_CDT_APIKEY,
+  authDomain: process.env.REACT_APP_CDT_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_CDT_PROJECTID,
+  storageBucket: process.env.REACT_APP_CDT_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_CDT_MESSAGINGSENDERID,
+  appId: process.env.REACT_APP_CDT_APPID,
+  measurementId: process.env.REACT_APP_CDT_MEASUREMENTID
 };
 
 // Initialize Firebase
