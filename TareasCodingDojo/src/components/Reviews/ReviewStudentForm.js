@@ -3,16 +3,14 @@ import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
+import { CommentsListForm } from './CommentsListForm';
 
-export const ReviewStudentForm = ({studentIdx,reviewId}) => {
+export const ReviewStudentForm = ({reviewId,studentIdx}) => {
   const [id, setId] = useState('');
-  const [bootcamps, setBootcamps] = useState([]);
   const [bootcampId, setBootcampId] = useState('');
   const [bootcamp, setBootcamp] = useState('');
-  const [tasks, setTasks] = useState([]);
   const [taskId, setTaskId] = useState('');
   const [task, setTask] = useState('');
-  const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState('');
   const [student, setStudent] = useState('');
   const [taskCompleted, setTaskCompleted] = useState(false);
@@ -78,37 +76,37 @@ export const ReviewStudentForm = ({studentIdx,reviewId}) => {
   return (
     <div className="text-center">
     <br/>
-    <div className="form-signin" style={{"maxWidth":"400px"}} >
+    <div className="form-signin" style={{"maxWidth":"500px"}} >
       <h2 className="h3 mb-3 font-weight-normal">Edición Revisión</h2>
       <table width="100%">
           <tbody>
         <tr>
-            <td width="40%"><label htmlFor="id" className="sr-only">Id:</label></td>
+            <td width="30%" className="text-start"><label htmlFor="id" className="sr-only">Id:</label></td>
             <td >
                 <input name="id" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
             </td>
         </tr>
         <tr>
-            <td><label htmlFor="createdAt" className="sr-only">Fecha Creación:</label></td>
+            <td className="text-start"><label htmlFor="createdAt" className="sr-only">Fecha Creación:</label></td>
             <td><input name="createdAt" className="form-control" onChange={handleChange} value={createdAt} readOnly/></td>
         </tr>
         <tr>
-            <td><label htmlFor="bootcampId" className="sr-only">Curso:</label></td>
+            <td className="text-start"><label htmlFor="bootcampId" className="sr-only">Curso:</label></td>
             <td><input className="form-control"  onChange={handleChange} value={bootcamp} disabled /></td>
         </tr>
         <tr>
-            <td><label htmlFor="studentId" className="sr-only">Estudiante:</label></td>
+            <td className="text-start"><label htmlFor="studentId" className="sr-only">Estudiante:</label></td>
             <td><input className="form-control"  onChange={handleChange} value={student} disabled/></td>
         </tr>
         <tr>
-            <td><label htmlFor="taskId" className="sr-only">Tarea:</label></td>
+            <td className="text-start"><label htmlFor="taskId" className="sr-only">Tarea:</label></td>
             <td><input className="form-control"  onChange={handleChange} value={task} disabled/></td>
         </tr>
         <tr>
-            <td><label htmlFor="taskId" className="sr-only">Completada:</label></td>
+            <td className="text-start"><label htmlFor="taskId" className="sr-only">Completada:</label></td>
             <td><input type="checkbox" name="finished" onChange={handleChange} checked={taskCompleted}/></td>
         </tr>
-        <tr><td>Primer Comentario</td></tr>
+        <tr><td>Primer Comentario:</td></tr>
         <tr>
             <td colSpan="100%">
                 <textarea name="firstComment" className="form-control" placeholder="Ingresa el primer comentario" required="" onChange={handleChange} value={firstComment} disabled/>
@@ -119,16 +117,7 @@ export const ReviewStudentForm = ({studentIdx,reviewId}) => {
       {!errors ? '' : <div className="text-danger">{errors}</div> }
       <br/>
         <Link to={"/reviews/student/" + studentId} className="btn btn-primary">Regresar a Lista</Link>
-      { !taskCompleted && !newSaved ? <form onSubmit={handleSubmit}>
-        <hr/>
-        <h3>Nuevo Comentario</h3>
-        <textarea name='comment' className="form-control" onChange={handleChange} value={comment}></textarea>
-        {!commentErrors ? '' : <div className="text-danger">{commentErrors}</div> }
-        <br/>
-        <button className="btn btn-primary" type="submit">Guardar</button> 
-      </form> : '' }
-      <hr/>
-      { !taskCompleted ? <DeleteButton id={id} collection={"comments"} showSeparator={true} />   : ''}
+          <CommentsListForm reviewId={reviewId} studentId={studentId} taskCompleted={taskCompleted} isAdmin={false} />
      </div>
 </div>
 )

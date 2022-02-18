@@ -498,7 +498,8 @@ const deleteReview = (id) => {
 
 const getComments = async (reviewId) => {
   let result = [];
-  await get(child(databaseRef, "reviews/"+ reviewId)).then(snapshot => {
+  let query;
+  await get(child(databaseRef, `reviews/${reviewId}/comments`)).then(snapshot => {
       if (snapshot.exists()) {
         result = snapshot.val();
         //result.id = id;
@@ -518,7 +519,7 @@ const updateComment = async (id, comment, reviewId) => {
     const newKey = push(child(ref(getDatabase()), 'reviews/'+ reviewId)).key;
     id = newKey;
   }
-  const itemRef = ref(getDatabase(), `reviews/${reviewId}/${id}`);
+  const itemRef = ref(getDatabase(), `reviews/${reviewId}/comments/${id}`);
   await set(itemRef, comment)
     .then(response => response)
     .catch(error => error);
@@ -528,7 +529,7 @@ const updateComment = async (id, comment, reviewId) => {
 
 const deleteComment = (id, reviewId) => {
   try {
-    const itemRef = ref(getDatabase(), `reviews/${reviewId}/${id}`);
+    const itemRef = ref(getDatabase(), `reviews/${reviewId}/comments/${id}`);
     set(itemRef, null);
     return true;
   }

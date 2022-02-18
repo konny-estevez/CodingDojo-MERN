@@ -24,6 +24,10 @@ export const DeleteButton = ({id, collection, setDeleteId, showSeparator}) => {
                     result = FirebaseUtil.deleteComment(id);
                     break;
                 default:
+                    if (collection.includes("reviews") && collection.includes("comments")) {
+                        result = FirebaseUtil.deleteComment(id, collection.split("/")[1]);
+                    }
+                    break;
             }
             if (result && setDeleteId) {
                 setDeleteId(id);
