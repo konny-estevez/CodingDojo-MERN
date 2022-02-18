@@ -7,14 +7,14 @@ export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-         FirebaseUtil.closeSession();
+        FirebaseUtil.closeSession();
         setUser({});
         localStorage.removeItem("coding-dojo-tasks");
         navigate("/");
     }
 
   return (
-    <>{ isAdmin || isStudent ? 
+    <>{ (isAdmin || isStudent) && user ? 
         <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">

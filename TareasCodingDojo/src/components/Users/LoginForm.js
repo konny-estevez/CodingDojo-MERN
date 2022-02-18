@@ -3,12 +3,17 @@ import {Link, navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 
-export const LoginForm = ({setUser,isAdmin,isStudent}) => {
+export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
 
   useEffect(() => {
+    if (!(user && user.uid)) {
+      navigate("/");
+      return;
+    }
+
       if (isAdmin || isStudent) {
         console.log("Redirect to home");
         navigate("/home");

@@ -52,8 +52,18 @@ export const CommentsListForm = ({reviewId,studentId, taskCompleted, isAdmin}) =
           setNewSaved(true);
           setComment('');
           setCommentErrors("Comentario guardado exitosamente");
+          let review = await FirebaseUtil.getReview(reviewId);
+          review.updatedAt = new Date().toISOString();
+          FirebaseUtil.updateReview(reviewId, review);
         }
     }
+
+    const updateReviewDate = async (id) => {
+        let review = await FirebaseUtil.getReview(reviewId);
+        review.updatedAt = new Date().toISOString();
+        FirebaseUtil.updateReview(reviewId, review);
+        setNewSaved(!newSaved);
+  }
 
   return (
       <div width="500px">
@@ -77,7 +87,7 @@ export const CommentsListForm = ({reviewId,studentId, taskCompleted, isAdmin}) =
                         <td>{item.isAdmin ? "Tutor" : "Estudiante"}</td>
                         <td>
                         { !item.isAdmin ? <DeleteButton id={item.id} collection={`reviews/${reviewId}/comments`} 
-                            setDeleteId={setNewSaved} showSeparator={false} /> : ''}
+                            setDeleteId={updateReviewDate} showSeparator={false} /> : ''}
                         </td>
                     </tr>) }
                 </tbody>

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {Link,navigate} from '@reach/router';
+import {Link } from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
-import { DeleteButton } from '../Utils/DeleteButton';
 import { CommentsListForm } from './CommentsListForm';
 
 export const ReviewStudentForm = ({reviewId,studentIdx}) => {
@@ -54,23 +53,6 @@ export const ReviewStudentForm = ({reviewId,studentIdx}) => {
             break;
         default:
       }
-  }
-
-  const handleSubmit = async (e) => {
-      e.preventDefault();
-      if (!comment) {
-          setCommentErrors("Debes ingresar un comentario válido.");
-          return;
-      }
-      const newComment = {
-          createdAt: new Date().toISOString(),
-          comment: comment,
-      }
-      let result = await FirebaseUtil.updateComment(null, newComment, reviewId);
-      if(result) {
-        setNewSaved(true);
-      }
-      setCommentErrors("Comentario guardado exitosamente");
   }
 
   return (

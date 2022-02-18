@@ -46,7 +46,8 @@ function App() {
  
   return (
     <div className="container">
-      <NavBar user={user} setUser={setUser} isAdmin={isAdmin} isStudent={isStudent}/>
+      { (isAdmin || isStudent) && user.uid ?
+      <NavBar user={user} setUser={setUser} isAdmin={isAdmin} isStudent={isStudent}/> : ''}
       <br/>
       <h1 className="text-center">Control de Tareas - Coding Dojo</h1>
       <Router>
