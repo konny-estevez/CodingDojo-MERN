@@ -39,10 +39,9 @@ export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
                         <Link to="/reviews" className="nav-link" >Revisiones</Link>
                     </li>
                 </>: ''}
-                {isStudent ? 
                     <li className="nav-item">
                         <Link to={"/reviews/student/"+ user.uid} className="nav-link">Revisión Tareas</Link> 
-                    </li>: ''}
+                    </li>
                 </ul>
             </div>  
             <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>

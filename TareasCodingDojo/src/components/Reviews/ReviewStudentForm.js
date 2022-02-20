@@ -18,7 +18,7 @@ export const ReviewStudentForm = ({reviewId,studentIdx}) => {
   const [newSaved, setNewSaved] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [comment, setComment] = useState('');
-  const [commentErrors, setCommentErrors] = useState('');
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     
@@ -99,8 +99,8 @@ export const ReviewStudentForm = ({reviewId,studentIdx}) => {
       {!errors ? '' : <div className="text-danger">{errors}</div> }
       <br/>
         <Link to={"/reviews/student/" + studentId} className="btn btn-primary">Regresar a Lista</Link>
-          <CommentsListForm reviewId={reviewId} studentId={studentId} taskCompleted={taskCompleted} isAdmin={false} />
      </div>
+        <CommentsListForm reviewId={reviewId} studentId={studentId} taskCompleted={taskCompleted} isAdmin={false} comments={comments} setComments={setComments}/>
 </div>
 )
 }

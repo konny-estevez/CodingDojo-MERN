@@ -511,6 +511,7 @@ const getComments = async (reviewId) => {
       }
     })
     .catch(error => error);
+    console.log(result);
   return result;
 }
 

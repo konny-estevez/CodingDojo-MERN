@@ -64,10 +64,10 @@ export const ReviewsList = ({isAdmin}) => {
         <thead>
             <tr>
                 <th className="text-center">No.</th>
-                <th className="text-center">Id</th>
-                <th className="text-center">Bootcamp</th>
-                <th className="text-center">Estudiante</th>
-                <th className="text-center">Tarea</th>
+                <th className="text-center" width="10%">Id</th>
+                <th className="text-center" width="15%">Curso</th>
+                <th className="text-center" width="20%">Estudiante</th>
+                <th className="text-center" width="15%">Tarea</th>
                 <th className="text-center">Completada</th>
                 <th className="text-center">Fecha Creación</th>
                 <th className="text-center">Fecha Actualización</th>

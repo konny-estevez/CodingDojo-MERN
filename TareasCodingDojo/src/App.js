@@ -18,29 +18,40 @@ import { ReviewForm } from './components/Reviews/ReviewForm';
 import { NotFoundPage} from './components/Utils/NotFoundPage';
 import { ReviewsStudentList } from './components/Reviews/ReviewsStudentList';
 import { ReviewStudentForm } from './components/Reviews/ReviewStudentForm';
+import { FirebaseUtil } from './components/Utils/Firebase.Util';
 
 function App() {
   const [user, setUser] = useState({});
   const [isAdmin, setIsAdmin] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
+  const [students, setStudents] = useState([]);
 
   useEffect(() => {
-    const uid = localStorage.getItem("coding-dojo-tasks");
-    if (uid && uid.length > 5) {
-      let user = JSON.parse(uid);
-      /*FirebaseUtil.getUserInfo(uid)
-        .then(response => setUser(response))
-        .catch(error => error);*/
-      setUser(user);
-      //console.log(uid);
-      const admin = user.email &&  user.email === "konny.estevez@gmail.com" ? true : false;
-      const student = user.email && user.email !== "konny.estevez@gmail.com" ? true : false;
-      setIsAdmin(admin);
-      setIsStudent(student);
-      if (!admin && !student) {
-        navigate("/");
+    const getData = async () => {
+      const uid = localStorage.getItem("coding-dojo-tasks");
+      if (uid && uid.length > 5) {
+        let user = JSON.parse(uid);
+        /*FirebaseUtil.getUserInfo(uid)
+          .then(response => setUser(response))
+          .catch(error => error);*/
+        setUser(user);
+        //console.log(uid);
+        const admin = user.email &&  user.email === "konny.estevez@gmail.com" ? true : false;
+        const student = user.email && user.email !== "konny.estevez@gmail.com" ? true : false;
+        let result = await FirebaseUtil.getStudents();
+        let data = [];
+        Object.keys(result).map(key => 
+          data = [...data, { id: key, name: result[key].name}]
+          );
+        setStudents(data);
+        setIsAdmin(admin);
+        setIsStudent(student);
+        if (!admin && !student) {
+          navigate("/");
+        }
       }
     }
+    getData();
   }, []);
   
  
@@ -69,7 +80,7 @@ function App() {
         <ReviewsList path="/reviews" user={user} isAdmin={isAdmin}/>
         <ReviewForm path="/reviews/new" user={user} isAdmin={isAdmin}/>
         <ReviewForm path="/reviews/:editId" user={user} isAdmin={isAdmin}/>
-        <ReviewsStudentList path="reviews/student/:studentId" />
+        <ReviewsStudentList path="reviews/student/:studentId" isAdmin={isAdmin} students={students} />
         <ReviewStudentForm path="/reviews/student/:studentId/:reviewId" />
         <NotFoundPage default />
       </Router>

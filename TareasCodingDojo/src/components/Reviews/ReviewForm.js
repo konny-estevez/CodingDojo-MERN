@@ -3,6 +3,7 @@ import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
+import { CommentsListForm } from './CommentsListForm';
 
 export const ReviewForm = ({editId, isAdmin}) => {
   const [id, setId] = useState('');
@@ -20,6 +21,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
   const [errors, setErrors] = useState('');
   const [newSaved, setNewSaved] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
+  const [comments, setComments] = useState([]);
 
   useEffect(() => {
     if (!isAdmin) {
@@ -50,6 +52,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
             setStudentId(result.studentId);
             setFirstComment(result.firstComment);
             setTaskCompleted(result.taskCompleted);
+            setComments(result.comments ?? []);
             if (Array.isArray(tempBootcamps)) {
               let bootcamp = tempBootcamps.find(item => item.id === result.bootcampId);
               setBootcamp(bootcamp.name);
@@ -125,6 +128,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
         studentId: studentId,
         firstComment: firstComment,
         taskCompleted: taskCompleted,
+        comments: comments,
       };
       let result = await FirebaseUtil.updateReview(editId, review);
       if (result && typeof(result) === "object") {
@@ -135,6 +139,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
         setStudentId(result.studentId);
         setTaskCompleted(result.taskCompleted);
         setFirstComment(result.firstComment);
+        setComments(result.comments);
         setErrors("Revisión guardada existosamente.");
         setNewSaved(true);
       }
@@ -188,6 +193,7 @@ return (
         { !newSaved || editId === id ? <button className="btn btn-primary" type="submit">Guardar</button> : '' }
        </form> { id ? <DeleteButton id={id} collection={"reviews"} showSeparator={true} />   : ''}
        <Link to="/reviews" className="btn btn-primary">Regresar a Lista</Link>
+       <CommentsListForm reviewId={editId} studentId={studentId} taskCompleted={taskCompleted} isAdmin={true} comments={comments} setComments={setComments} />
   </div>
   )
 }
