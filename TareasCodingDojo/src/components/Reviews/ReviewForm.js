@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -22,6 +22,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
   const [newSaved, setNewSaved] = useState(false);
   const [createdAt, setCreatedAt] = useState('');
   const [comments, setComments] = useState([]);
+  const firstInput = useRef('');
 
   useEffect(() => {
     if (!isAdmin) {
@@ -63,6 +64,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
             setTask(task.name);
           }
         }
+        firstInput.current.focus();
       };
       getData();
     },[newSaved]);
@@ -161,7 +163,7 @@ return (
 
         <label htmlFor="bootcampId" className="sr-only">Curso</label>
         { id ? <input className="form-control" required onChange={handleChange} value={bootcamp} disabled /> : 
-        <select name="bootcampId" className="form-control" required="" autoFocus="" onChange={handleChange} value={bootcampId}>
+        <select name="bootcampId" className="form-control" required="" ref={firstInput} onChange={handleChange} value={bootcampId}>
           <option key={0} value={''} disabled>[Seleccione un Bootcamp]</option>
           {bootcamps.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
          </select>}

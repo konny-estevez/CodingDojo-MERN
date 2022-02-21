@@ -42,6 +42,7 @@ function quickSort(items, left, right) {
 
 //let items = [5,3,7,9,2,6,1,11,0,-3];
 let items = [1, 4, 2, 7, 6, 3, 8, 20, 9, 15, 12, 10, 30, 5, 27, 43, 17, 23, 35, 13, 0, -10]; 
+items = [78,95,65,99,24];
 console.log(items);
 let start = performance.now();
 let sortedArray = quickSort(items, 0, items.length - 1);

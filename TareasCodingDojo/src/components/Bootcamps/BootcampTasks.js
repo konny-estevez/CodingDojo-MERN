@@ -8,11 +8,13 @@ export const BootcampTasks = ({bootcampId}) => {
     const [bootcampTasks, setBootcampTasks] = useState([]);
 
     useEffect(() => {
-        let selectedStudents = [];
+        let selectedItems = [];
         FirebaseUtil.getBootcampTasks(bootcampId)
             .then(response => {
-                setBootcampTasks(response);
-                selectedStudents = response;
+                if (response) {
+                    setBootcampTasks(response);
+                    selectedItems = response;
+                }
             })
             .catch(error => setErrors(error));
         FirebaseUtil.getTasks()
@@ -23,7 +25,7 @@ export const BootcampTasks = ({bootcampId}) => {
                         id: key,
                         name: response[key].name,
                     }]);
-                    const selectedIds = selectedStudents.map(item => item.id);
+                    const selectedIds = selectedItems.map(item => item.id);
                 temp = temp.filter((item) => !selectedIds.includes(item.id));
                 setTasks(temp);
             })
@@ -52,6 +54,13 @@ export const BootcampTasks = ({bootcampId}) => {
         }
     }
 
+    const handleClear = (e) => {
+        if (window.confirm("Estás seguro que deseas eliminar las tareas del curso?")) {
+            FirebaseUtil.updateBootcampTasks(bootcampId,null);
+            setBootcampTasks([]);
+        }
+    }
+
   return (
     <div>
         <h2>Tareas del Bootcamp</h2>
@@ -68,7 +77,10 @@ export const BootcampTasks = ({bootcampId}) => {
                 <div className="col-md-1" >
                     <button type="submit" className="btn btn-primary">Agregar</button>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
+                    <button type="button" className="btn btn-danger" onClick={handleClear}>Limpiar</button>
+                </div>
+                <div className="col-md-1">
                 </div>
                 <div className="col-md-4 text-start">
                     <ol>

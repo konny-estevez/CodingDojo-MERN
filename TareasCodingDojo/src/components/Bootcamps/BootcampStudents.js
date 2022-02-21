@@ -11,11 +11,13 @@ export const BootcampStudents = ({bootcampId}) => {
         let selectedStudents = [];
         FirebaseUtil.getBootcampStudents(bootcampId)
             .then(response => {
-                setBootcampStudents(response);
-                selectedStudents = response;
+                if (response) {
+                    setBootcampStudents(response);
+                    selectedStudents = response;
+                }
             })
             .catch(error => setErrors(error));
-        FirebaseUtil.getStudents()
+            FirebaseUtil.getStudents()
             .then(response => {
                 let temp = [];
                 Object.keys(response).map((key) => 
@@ -52,6 +54,13 @@ export const BootcampStudents = ({bootcampId}) => {
         }
     }
 
+    const handleClear = (e) => {
+        if (window.confirm("Estás seguro que deseas eliminar los estudiantes del curso?")) {
+            FirebaseUtil.updateBootcampStudents(bootcampId,null);
+            setBootcampStudents([]);
+        }
+    }
+
   return (
     <div>
         <h2>Estudiantes del Bootcamp</h2>
@@ -68,7 +77,10 @@ export const BootcampStudents = ({bootcampId}) => {
                 <div className="col-md-1" >
                     <button type="submit" className="btn btn-primary">Agregar</button>
                 </div>
-                <div className="col-md-2">
+                <div className="col-md-1">
+                    <button type="button" className="btn btn-danger" onClick={handleClear}>Limpiar</button>
+                </div>
+                <div className="col-md-1">
                 </div>
                 <div className="col-md-4 text-start">
                     <ol>

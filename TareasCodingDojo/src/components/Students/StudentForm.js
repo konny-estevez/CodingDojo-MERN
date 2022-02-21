@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -12,6 +12,7 @@ export const StudentForm = ({editId, isAdmin}) => {
   const [errors, setErrors] = useState('');
   const [newSaved, setNewSaved] = useState(false);
   const emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+  const firstInput = useRef('');
 
   useEffect(() => {
     if (!isAdmin) {
@@ -32,6 +33,7 @@ export const StudentForm = ({editId, isAdmin}) => {
           setActive(result.active);
         }
       }
+      firstInput.current.focus();
     };
     getData();
   },[newSaved]);
@@ -89,9 +91,9 @@ export const StudentForm = ({editId, isAdmin}) => {
           <label htmlFor="editId" className="sr-only">Id</label>
           <input type="text" name="editId" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
           <label htmlFor="name" className="sr-only">Nombre</label>
-          <input type="text" name="name" className="form-control" placeholder="Nombre estudiante" required="" onChange={handleChange} value={name}/>
+          <input type="text" name="name" className="form-control" placeholder="Nombre estudiante" required="" ref={firstInput} onChange={handleChange} value={name}/>
           <label htmlFor="email" className="sr-only">Email</label>
-          <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" autoFocus="" onChange={handleChange} value={email}/>
+          <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" ref={firstInput} onChange={handleChange} value={email}/>
           <div className="checkbox mb-3">
             <label>
               <input type="checkbox" name="active" onChange={handleChange} checked={active}/> Activo

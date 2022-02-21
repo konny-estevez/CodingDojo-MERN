@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -12,6 +12,7 @@ export const TasksForm = ({editId, isAdmin}) => {
     const [active, setActive] = useState(false);
     const [errors, setErrors] = useState('');
     const [newSaved, setNewSaved] = useState(false);
+    const firstInput = useRef('');
 
     useEffect(() => {
       if (!isAdmin) {
@@ -33,6 +34,7 @@ export const TasksForm = ({editId, isAdmin}) => {
               setUrl(result.url);
             }
           }
+          firstInput.current.focus();
         };
         getData();
       },[newSaved]);
@@ -95,7 +97,7 @@ export const TasksForm = ({editId, isAdmin}) => {
           <label htmlFor="editId" className="sr-only">Id</label>
           <input type="text" name="editId" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
           <label htmlFor="code" className="sr-only">code</label>
-          <input type="code" name="code" className="form-control" placeholder="Código tarea" required="" autoFocus="" onChange={handleChange} value={code}/>
+          <input type="code" name="code" className="form-control" placeholder="Código tarea" required="" ref={firstInput} onChange={handleChange} value={code}/>
           <label htmlFor="name" className="sr-only">Nombre</label>
           <input type="text" name="name" className="form-control" placeholder="Nombre tarea" required="" onChange={handleChange} value={name}/>
           <label htmlFor="name" className="sr-only">Url -&gt; </label>

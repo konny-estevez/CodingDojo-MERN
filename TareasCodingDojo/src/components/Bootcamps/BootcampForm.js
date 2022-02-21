@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {Link,navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -13,6 +13,7 @@ export const BootcampForm = ({editId, isAdmin}) => {
     const [active, setActive] = useState(false);
     const [errors, setErrors] = useState('');
     const [newSaved, setNewSaved] = useState(false);
+    const firstInput = useRef('');
 
     useEffect(() => {
       if (!isAdmin) {
@@ -33,6 +34,7 @@ export const BootcampForm = ({editId, isAdmin}) => {
               setActive(result.active);
             }
           }
+          firstInput.current.focus();
         };
         getData();
       },[newSaved]);
@@ -90,7 +92,7 @@ export const BootcampForm = ({editId, isAdmin}) => {
           <label htmlFor="editId" className="sr-only">Id</label>
           <input type="text" name="id" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
           <label htmlFor="code" className="sr-only">code</label>
-          <input type="code" name="code" className="form-control" placeholder="Código bootcamp" required="" autoFocus="" onChange={handleChange} value={code}/>
+          <input type="code" name="code" className="form-control" placeholder="Código bootcamp" required="" ref={firstInput} onChange={handleChange} value={code}/>
           <label htmlFor="name" className="sr-only">Nombre</label>
           <input type="text" name="name" className="form-control" placeholder="Nombre bootcamp" required="" onChange={handleChange} value={name}/>
           <div className="checkbox mb-3">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {Link, navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -8,7 +8,9 @@ export const RegisterForm = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
   const [verifyPassword, setVerifyPassword] = useState('');
+  const firstInput = useRef('');
 
+  firstInput.current.focus();
   const handleChange = (e) => {
     switch(e.target.name) {
       case 'email':
@@ -57,7 +59,7 @@ export const RegisterForm = () => {
           <img className="logo" src="/img/Coding-Dojo.jpg" alt="Coding Dojo logo" />
           <h2 className="h3 mb-3 font-weight-normal">Registro de Usuario</h2>
           <label htmlFor="inputEmail" className="sr-only">Usuario</label>
-          <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" autoFocus="" onChange={handleChange} value={username}/>
+          <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" ref={firstInput} onChange={handleChange} value={username}/>
           <label htmlFor="inputPassword" className="sr-only">Contraseña</label>
           <input type="password" name="password" className="form-control" placeholder="Contraseña" required="" onChange={handleChange} value={password}/>
           <label htmlFor="inputPasswordVerify" className="sr-only">Verificar Contraseña</label>

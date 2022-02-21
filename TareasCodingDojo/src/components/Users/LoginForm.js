@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, useRef } from 'react';
 import {Link, navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -7,6 +7,7 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
+  const firstInput = useRef('');
 
   useEffect(() => {
     if (!(user && user.uid)) {
@@ -18,6 +19,7 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
         console.log("Redirect to home");
         navigate("/home");
       }
+      firstInput.current.focus();
   }, [isAdmin,isStudent]);  
 
   const handleChange = (e) => {
@@ -61,7 +63,7 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
           <img className="logo" src="/img/Coding-Dojo.jpg" alt="Coding Dojo logo" />
           <h2 className="h3 mb-3 font-weight-normal">Inicia sesión</h2>
           <label htmlFor="inputEmail" className="sr-only">Usuario</label>
-          <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" autoFocus="" onChange={handleChange} value={username}/>
+          <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" ref={firstInput} onChange={handleChange} value={username}/>
           <label htmlFor="inputPassword" className="sr-only">Contraseña</label>
           <input type="password" name="password" className="form-control" placeholder="Contraseña" required="" onChange={handleChange} value={password}/>
           <div className="checkbox mb-3">

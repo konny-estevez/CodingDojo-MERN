@@ -254,7 +254,7 @@ const getBootcampStudents = async (bootcampId) => {
 const getBootcampTasks = async (bootcampId) => {
   let result = await getBootcamp(bootcampId);
   if(result && typeof(result) === "object") {
-    result = result.students ? result.tasks : [];
+    result = result.tasks ? result.tasks : [];
   } 
   return result;
 }

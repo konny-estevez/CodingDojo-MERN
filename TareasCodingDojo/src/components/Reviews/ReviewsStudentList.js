@@ -3,14 +3,15 @@ import {Link} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 
-export const ReviewsStudentList = ({studentId, isAdmin, students}) => {
+export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
     const [reviews, setReviews] = useState({});
     const [errors, setErrors] = useState('');
     const [updateId, setUpdateId] = useState('');
     const [bootcamps, setBootcamps] = useState([]);
     const [tasks, setTasks] = useState([]);
     const [student, setStudent] = useState('');
-    //const [students, setStudents] = useState([]);
+    const [bootcampId, setBootcampId] = useState('');
+    const [students, setStudents] = useState([]);
 
     useEffect(() => {
           getData();
@@ -55,15 +56,25 @@ export const ReviewsStudentList = ({studentId, isAdmin, students}) => {
         <h2 className="text-center">Lista de Revisiones</h2>
         {isAdmin ? <div className="row">
             <br/>
-             <div className="col-md-1">
+            <div className="col-md-1">
+                <label htmlFor="bootcamps" className="form-label" >Curso:</label>
+            </div>
+            <div className="col-md-4">
+                <select className="form-control" name="bootcamps" onChange={handleChange} value={bootcampId} >
+                    <option key={0} value="">[Selecciona un curso]</option>
+                    { bootcamps.map((item,i) => <option key={i} value={item.id}>{item.name}</option>)}
+                </select>
+            </div>
+            <div className="col-md-1">
                 <label htmlFor="students" className="form-label" >Estudiante:</label>
             </div>
             <div className="col-md-4">
-            <select className="form-control" name="students" onChange={handleChange} value={studentId} >
-                <option key={0} value="">[Selecciona un estudiante]</option>
-                { students.map((item,i) => <option key={i} value={item.id}>{item.name}</option>)}
-            </select>
-            </div><br/> 
+                <select className="form-control" name="students" onChange={handleChange} value={studentId} >
+                    <option key={0} value="">[Selecciona un estudiante]</option>
+                    { students.map((item,i) => <option key={i} value={item.id}>{item.name}</option>)}
+                </select>
+            </div>
+            <br/> 
             </div>: ''}
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <table className="table table-striped">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {Link} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
@@ -6,7 +6,9 @@ import '../Utils/styles.css';
 export const ForgotPasswordForm = () => {
     const [username, setUsername] = useState('');
     const [errors, setErrors] = useState('');
+    const firstInput = useRef('');
 
+    firstInput.current.focus();
     const handleChange = (e) => {
         switch(e.target.name) {
           case 'email':
@@ -42,7 +44,7 @@ export const ForgotPasswordForm = () => {
             <img className="logo" src="/img/Coding-Dojo.jpg" alt="Coding Dojo logo" />
             <h2 className="h3 mb-3 font-weight-normal">Reseteo de Contraseña</h2>
             <label htmlFor="inputEmail" className="sr-only">Usuario</label>
-            <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" autoFocus="" onChange={handleChange} value={username}/>
+            <input type="email" name="email" className="form-control" placeholder="Correo electrónico" required="" ref={firstInput} onChange={handleChange} value={username}/>
             <br/>
             {!errors ? '' : <div className="text-danger">{errors}</div> }
             <br/>
