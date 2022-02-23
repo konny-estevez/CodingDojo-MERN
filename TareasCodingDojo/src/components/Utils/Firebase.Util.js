@@ -168,8 +168,11 @@ const updateStudent = async (id, student) => {
     const response = await createUserWithEmailAndPassword(getAuth(), student.email, "12345678");
     student.id = response.user.uid;
     student.active = true;
+    student.createdAt = new Date().toISOString();
     id = student.id;
   }
+  student.updatedAt = new Date().toISOString();
+  student.createdAt = student.createdAt ? student.createdAt : student.updatedAt;
   const itemRef = ref(getDatabase(), 'students/' + id);
   await set(itemRef, student)
     .then(response => response)
