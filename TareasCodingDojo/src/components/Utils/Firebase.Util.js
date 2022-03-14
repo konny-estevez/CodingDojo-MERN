@@ -432,8 +432,11 @@ const getReviews = async (studentId) => {
         let data = result;
         Object.keys(result).map(key => 
          { if (result[key].studentId !== studentId){
-          delete data[key];
-          }});
+            delete data[key];
+          }
+          else 
+            return data[key];
+          });
         result = data;
       } else {
         result = "No existen datos.";
@@ -490,7 +493,7 @@ const updateReview = async (id, review) => {
 
 const deleteReview = (id) => {
   try {
-    const itemRef = ref(getDatabase(), 'Review/' + id);
+    const itemRef = ref(getDatabase(), 'reviews/' + id);
     set(itemRef, null);
     return true;
   }

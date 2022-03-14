@@ -21,10 +21,10 @@ export const StudentsList = ({isAdmin}) => {
             .then(response => {
                 if (typeof(response) === "object") {
                     setErrors('');
-                    let temp = [];
-                    Object.keys(response).map((keyName,i) => {
+                    let temp = Object.keys(response).map((keyName,i) => {
                         response[keyName].id = keyName;
-                        temp = [...temp, response[keyName]];
+                        //temp = [...temp, response[keyName]];
+                        return response[keyName];
                     });
                     temp.sort((a,b) => {
                         if (a.name > b.name)
@@ -43,7 +43,7 @@ export const StudentsList = ({isAdmin}) => {
             .catch(error => setErrors(error));
         }
         getData();
-    }, [updateId]);
+    }, [updateId,isAdmin]);
     
   return (
     <div>

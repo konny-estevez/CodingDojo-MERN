@@ -20,7 +20,7 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
         navigate("/home");
       }
       firstInput.current.focus();
-  }, [isAdmin,isStudent]);  
+  }, [isAdmin,isStudent,user]);  
 
   const handleChange = (e) => {
     switch(e.target.name) {
