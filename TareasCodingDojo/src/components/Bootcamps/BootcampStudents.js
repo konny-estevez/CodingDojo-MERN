@@ -19,14 +19,22 @@ export const BootcampStudents = ({bootcampId}) => {
             .catch(error => setErrors(error));
             FirebaseUtil.getStudents()
             .then(response => {
-                let temp = [];
-                Object.keys(response).map((key) => 
-                    temp = [...temp, {
+                let temp = Object.keys(response).map((key) => {
+                    return {
                         id: key,
                         name: response[key].name,
-                    }]);
-                    const selectedIds = selectedStudents.map(item => item.id);
+                    };
+                });
+                const selectedIds = selectedStudents.map(item => item.id);
                 temp = temp.filter((item) => !selectedIds.includes(item.id));
+                temp.sort((a,b) => {
+                    if (a.name < b.name)
+                        return -1;
+                    else if (a.name > b.name)
+                        return 1;
+                    else 
+                        return 0;
+                })
                 setStudents(temp);
             })
             .catch(error => setErrors(error));

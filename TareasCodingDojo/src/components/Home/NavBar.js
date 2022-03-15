@@ -2,8 +2,7 @@ import React from 'react';
 import {Link, navigate} from '@reach/router';
 import { FirebaseUtil } from '../Utils/Firebase.Util';
 
-export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
-        //console.log("Componente Navbar", isAdmin, isStudent);
+export const NavBar = ({user, setUser, isAdmin, isStudent, fullName}) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,7 +13,7 @@ export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
     }
 
   return (
-    <>{ (isAdmin || isStudent) && user ? 
+    <> { (isAdmin || isStudent) && user ? 
         <nav className="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mr-auto">
@@ -45,6 +44,7 @@ export const NavBar = ({user, setUser, isAdmin, isStudent}) => {
                 </ul>
             </div>  
             <form className="form-inline my-2 my-lg-0" onSubmit={handleSubmit}>
+                <label style={{color: "white", verticalAlign: "middle"}}>Hola, {fullName}</label>
                 <button className="btn btn-primary my-2 my-sm-0" type="submit">Salir</button>
             </form>
         </nav> : <></> }

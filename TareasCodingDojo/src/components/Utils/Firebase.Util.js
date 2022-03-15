@@ -428,16 +428,14 @@ const getReviews = async (studentId) => {
     //equalTo(studentId, "studentId"));
     await get(querys).then((snapshot) => {
       if (snapshot.exists()) {
-        result = snapshot.val();
-        let data = result;
-        Object.keys(result).map(key => 
-         { if (result[key].studentId !== studentId){
-            delete data[key];
-          }
-          else 
+        result = {};
+        let data = snapshot.val();
+        Object.keys(data).map(key => { 
+            if (data[key].studentId === studentId)
+              result[key] = data[key];
             return data[key];
-          });
-        result = data;
+        });
+        //console.log(result);
       } else {
         result = "No existen datos.";
       }
@@ -508,7 +506,6 @@ const getComments = async (reviewId) => {
   await get(child(databaseRef, `reviews/${reviewId}/comments`)).then(snapshot => {
       if (snapshot.exists()) {
         result = snapshot.val();
-        //result.id = id;
         return result;
       }
       else {
@@ -517,7 +514,6 @@ const getComments = async (reviewId) => {
       }
     })
     .catch(error => error);
-    console.log(result);
   return result;
 }
 

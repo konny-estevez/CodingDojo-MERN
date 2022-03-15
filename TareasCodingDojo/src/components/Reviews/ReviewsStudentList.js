@@ -14,47 +14,91 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-          getData();
+          getBootcamps();
+          getTasks();
+          if (!isAdmin) 
+            getData();
       }, [updateId]);
 
-      const getData = async () => {
-        await FirebaseUtil.getReviews(studentId)
-          .then(response => {
-              if (typeof(response) === "object") {
-                  setErrors('');
-                  setReviews(response);
-              }
-              else {
-                  setErrors(response);
-              }
-          })
-          .catch(error => setErrors(error));
-          let result = await FirebaseUtil.getBootcamps();
-          let temp = [];
-          Object.keys(result).map(key => {
-              temp = [...temp, {id: key, name: result[key].name}];
-          });
-          setBootcamps(temp);
-          result = await FirebaseUtil.getTasks();
-          temp = [];
-          Object.keys(result).map(key => {
-              temp = [...temp, {id: key, name: result[key].name}];
-          });
-          setTasks(temp);
-          result = await FirebaseUtil.getStudent(studentId);
-          setStudent(result);
+      const getBootcamps = async () => {
+        let result = await FirebaseUtil.getBootcamps();
+        let temp = Object.keys(result).map(key => {
+            return {id: key, name: result[key].name};
+        });
+        setBootcamps(temp);
       }
 
-    const handleChange = (e) => {
-        studentId = e.target.value;
-        getData();
+      const getTasks = async () => {
+        let result = await FirebaseUtil.getTasks();
+        let temp = Object.keys(result).map(key => {
+            return {id: key, name: result[key].name};
+        });
+        setTasks(temp);
+      }
+
+      const getData = async (student) => {
+        if (isAdmin && student) {
+            studentId = student.id;
+            isAdmin = false;
+        }
+        if (!isAdmin) {
+            await FirebaseUtil.getReviews(studentId)
+            .then(response => {
+                if (typeof(response) === "object") {
+                    setErrors('');
+                    setReviews(response);
+                }
+                else {
+                    setErrors(response);
+                }
+            })
+            .catch(error => setErrors(error));
+            let result = await FirebaseUtil.getStudent(studentId);
+            setStudent(result);
+        }
+      }
+
+    const handleChange = async (e) => {
+        let temp = [];
+        switch (e.target.name) {
+            case 'bootcamps':
+                setBootcampId(e.target.value);
+                temp = await FirebaseUtil.getStudents(e.target.value);
+                temp.sort((a,b) => {
+                    if (a.name < b.name)
+                        return -1;
+                    else if (a.name > b.name)
+                        return 1;
+                    else 
+                        return 0;
+                });
+                setStudents(temp);
+                setReviews({});
+                break;
+            case 'students':
+                let student = await FirebaseUtil.getStudent(e.target.value);
+                student.id = e.target.value;
+                console.log(student);
+                setStudent(student);
+                getData(student);
+                break;
+        }
     }
 
     return (
         <div>
+            {JSON.stringify(student)}
         <br/>
         <h2 className="text-center">Lista de Revisiones</h2>
-        {isAdmin ? <div className="row">
+        {isAdmin ? 
+        <>
+        <div className="row">
+            { (bootcampId) ?
+            <div className="col-md-1">
+                <Link to={"/reviews/"+bootcampId+"/"+student.id} className="btn btn-primary">Nuevo</Link>
+            </div> : ''}
+            </div>
+        <div className="row">
             <br/>
             <div className="col-md-1">
                 <label htmlFor="bootcamps" className="form-label" >Curso:</label>
@@ -69,13 +113,13 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
                 <label htmlFor="students" className="form-label" >Estudiante:</label>
             </div>
             <div className="col-md-4">
-                <select className="form-control" name="students" onChange={handleChange} value={studentId} >
+                <select className="form-control" name="students" onChange={handleChange} value={student.id} >
                     <option key={0} value="">[Selecciona un estudiante]</option>
                     { students.map((item,i) => <option key={i} value={item.id}>{item.name}</option>)}
                 </select>
             </div>
             <br/> 
-            </div>: ''}
+            </div></>: ''}
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <table className="table table-striped">
             <thead>

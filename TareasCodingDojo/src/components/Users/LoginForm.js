@@ -3,7 +3,7 @@ import {Link, navigate} from '@reach/router';
 import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 
-export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
+export const LoginForm = ({user,setUser,isAdmin,isStudent,setFullName}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
@@ -49,6 +49,11 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent}) => {
           setUser(result.user);
           //localStorage.setItem("coding-dojo-tasks", result.user.uid);
           localStorage.setItem("coding-dojo-tasks", JSON.stringify(result.user));
+          let student = await FirebaseUtil.getStudent(result.user.uid);
+          if (student.name)
+            setFullName(student.name.toLowerCase());
+          else 
+            setFullName("admin");
           navigate("/home", result.user);
         }
         else if (result && result.code) {

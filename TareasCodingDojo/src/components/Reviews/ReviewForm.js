@@ -5,7 +5,7 @@ import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 import { CommentsListForm } from './CommentsListForm';
 
-export const ReviewForm = ({editId, isAdmin}) => {
+export const ReviewForm = ({editId, isAdmin, idBootcamp, idStudent}) => {
   const [id, setId] = useState('');
   const [bootcamps, setBootcamps] = useState([]);
   const [bootcampId, setBootcampId] = useState('');
@@ -34,11 +34,13 @@ export const ReviewForm = ({editId, isAdmin}) => {
         let result = await FirebaseUtil.getBootcamps();
         let tempBootcamps = [];
         if (result && typeof(result) === "object") {
-          Object.keys(result).map((keyName,i) => {
-            tempBootcamps = [...tempBootcamps, {id: keyName, name: result[keyName].name}];
-            return tempBootcamps;
+          tempBootcamps = Object.keys(result).map((keyName,i) => {
+            return {id: keyName, name: result[keyName].name};
           });
           setBootcamps(tempBootcamps);
+        }
+        if (idBootcamp) {
+          setBootcampId(idBootcamp);
         }
         if (editId) {
           let result;
@@ -64,7 +66,8 @@ export const ReviewForm = ({editId, isAdmin}) => {
             setTask(task.name);
           }
         }
-        firstInput.current.focus();
+        if (firstInput.current)
+          firstInput.current.focus();
       };
       getData();
     },[newSaved]);
@@ -72,7 +75,18 @@ export const ReviewForm = ({editId, isAdmin}) => {
     const getStudents = (bootcampId) => {
       if (bootcampId && bootcampId.length > 5) {
         FirebaseUtil.getStudents(bootcampId)
-          .then(response => setStudents(response))
+          .then(response => {
+            let temp = response;
+            temp.sort((a,b) => {
+              if (a.name < b.name)
+                return -1;
+              else if (a.name > b.name)
+                return 1;
+              else 
+                return 0;
+            })
+            setStudents(temp);
+          })
           .catch(error => setErrors(error));
       }
     }
@@ -103,6 +117,7 @@ export const ReviewForm = ({editId, isAdmin}) => {
           break;
         case 'finished':
           setTaskCompleted(e.target.checked);
+          setFirstComment("Tarea correcta");
           break;
         case "firstComment":
           setFirstComment(e.target.value);

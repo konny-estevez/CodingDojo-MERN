@@ -25,6 +25,7 @@ function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isStudent, setIsStudent] = useState(false);
   const [students, setStudents] = useState([]);
+  const [fullName, setFullName] = useState('');
 
   useEffect(() => {
     const getData = async () => {
@@ -36,13 +37,12 @@ function App() {
           .catch(error => error);*/
         setUser(user);
         //console.log(uid);
-        const admin = user.email &&  user.email === "konny.estevez@gmail.com" ? true : false;
+        const admin = user.email &&  user.email === ("konny.estevez@gmail.com" || "ivan.delpozo@udla.edu.ec") ? true : false;
         const student = user.email && user.email !== "konny.estevez@gmail.com" ? true : false;
         let result = await FirebaseUtil.getStudents();
-        let data = [];
-        Object.keys(result).map(key => 
-          data = [...data, { id: key, name: result[key].name}]
-          );
+        let data = Object.keys(result).map(key => {
+          return { id: key, name: result[key].name};
+        });
         setStudents(data);
         setIsAdmin(admin);
         setIsStudent(student);
@@ -58,11 +58,11 @@ function App() {
   return (
     <div className="container">
       { (isAdmin || isStudent) && user.uid ?
-      <NavBar user={user} setUser={setUser} isAdmin={isAdmin} isStudent={isStudent}/> : ''}
+      <NavBar user={user} setUser={setUser} isAdmin={isAdmin} isStudent={isStudent} fullName={fullName}/> : ''}
       <br/>
       <h1 className="text-center">Control de Tareas - Coding Dojo</h1>
       <Router>
-        <LoginForm path="/" setUser={setUser} isAdmin={isAdmin} isStudent={isStudent}/>
+        <LoginForm path="/" setUser={setUser} isAdmin={isAdmin} isStudent={isStudent} setFullName={setFullName}/>
         <RegisterForm path="/register" />
         <ForgotPasswordForm path="/forgotPassword" />
         <ResetUsers path="/resetUsers" user={user} isAdmin={isAdmin}/>
@@ -80,6 +80,7 @@ function App() {
         <ReviewsList path="/reviews" user={user} isAdmin={isAdmin}/>
         <ReviewForm path="/reviews/new" user={user} isAdmin={isAdmin}/>
         <ReviewForm path="/reviews/:editId" user={user} isAdmin={isAdmin}/>
+        <ReviewForm path="/reviews/:idBootcamp/:idStudentId" user={user} isAdmin={isAdmin}/>
         <ReviewsStudentList path="reviews/student/:studentId" isAdmin={isAdmin} students={students} />
         <ReviewStudentForm path="/reviews/student/:studentId/:reviewId" />
         <NotFoundPage default />
