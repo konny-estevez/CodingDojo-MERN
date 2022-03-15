@@ -55,7 +55,7 @@ const resetUsers = async (user) => {
   let result;
   let auth = getAuth();
   result = auth.listUsers(1000);
-  console.log(result);
+  //console.log(result);
   /*getUsers(auth, {})
     .then(response => {console.log(response);
       response.users.forEach((userRecord) => {
@@ -197,7 +197,6 @@ const updateStudentId = async (id) => {
         }
       })
       .catch(error => error);
-      console.log(result);
       deleteStudent(id);
       return result;
   }

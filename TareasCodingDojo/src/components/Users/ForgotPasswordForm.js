@@ -8,7 +8,9 @@ export const ForgotPasswordForm = () => {
     const [errors, setErrors] = useState('');
     const firstInput = useRef('');
 
-    firstInput.current.focus();
+    if (firstInput.current) {
+      firstInput.current.focus();
+    }
     const handleChange = (e) => {
         switch(e.target.name) {
           case 'email':

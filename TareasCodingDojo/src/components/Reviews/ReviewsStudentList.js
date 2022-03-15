@@ -78,7 +78,6 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
             case 'students':
                 let student = await FirebaseUtil.getStudent(e.target.value);
                 student.id = e.target.value;
-                console.log(student);
                 setStudent(student);
                 getData(student);
                 break;
