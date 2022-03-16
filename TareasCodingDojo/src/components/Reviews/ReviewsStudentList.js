@@ -91,12 +91,6 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
         {isAdmin ? 
         <>
         <div className="row">
-            { (bootcampId) ?
-            <div className="col-md-1">
-                <Link to={"/reviews/"+bootcampId+"/"+student.id} className="btn btn-primary">Nuevo</Link>
-            </div> : ''}
-            </div>
-        <div className="row">
             <br/>
             <div className="col-md-1">
                 <label htmlFor="bootcamps" className="form-label" >Curso:</label>

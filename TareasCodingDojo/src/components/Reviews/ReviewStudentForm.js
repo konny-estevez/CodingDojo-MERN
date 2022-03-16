@@ -4,7 +4,7 @@ import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { CommentsListForm } from './CommentsListForm';
 
-export const ReviewStudentForm = ({reviewId,studentIdx}) => {
+export const ReviewStudentForm = ({reviewId,isAdmin}) => {
   const [id, setId] = useState('');
   const [bootcampId, setBootcampId] = useState('');
   const [bootcamp, setBootcamp] = useState('');
@@ -51,8 +51,26 @@ export const ReviewStudentForm = ({reviewId,studentIdx}) => {
           case "comment":
             setComment(e.target.value);
             break;
+          case "finished":
+            setTaskCompleted(e.target.value);
+            break;
         default:
       }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const review = {
+      createdAt:  id ? createdAt : new Date().toISOString(),
+      updatedAt: id ? new Date().toISOString() : '',
+      bootcampId: bootcampId,
+      taskId: taskId,
+      studentId: studentId,
+      firstComment: firstComment,
+      taskCompleted: taskCompleted,
+      comments: comments,
+    };
+    //console.log(review);
   }
 
   return (
@@ -60,6 +78,7 @@ export const ReviewStudentForm = ({reviewId,studentIdx}) => {
     <br/>
     <div className="form-signin" style={{"maxWidth":"500px"}} >
       <h2 className="h3 mb-3 font-weight-normal">Edición Revisión</h2>
+      <form onSubmit={handleSubmit} >
       <table width="100%">
           <tbody>
         <tr>
@@ -98,6 +117,10 @@ export const ReviewStudentForm = ({reviewId,studentIdx}) => {
       </table>
       {!errors ? '' : <div className="text-danger">{errors}</div> }
       <br/>
+      { (!newSaved || reviewId === id) && isAdmin 
+        ? <><button className="btn btn-primary" type="submit">Guardar</button><br/><br/></>
+         : '' }
+      </form>
         <Link to={"/reviews/student/" + studentId} className="btn btn-primary">Regresar a Lista</Link>
      </div>
         <CommentsListForm reviewId={reviewId} studentId={studentId} taskCompleted={taskCompleted} isAdmin={false} comments={comments} setComments={setComments}/>

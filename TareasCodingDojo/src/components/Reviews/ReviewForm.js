@@ -117,7 +117,8 @@ export const ReviewForm = ({editId, isAdmin, idBootcamp, idStudent}) => {
           break;
         case 'finished':
           setTaskCompleted(e.target.checked);
-          setFirstComment("Tarea correcta");
+          if (!firstComment)
+            setFirstComment("Tarea correcta");
           break;
         case "firstComment":
           setFirstComment(e.target.value);

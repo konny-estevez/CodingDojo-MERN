@@ -82,7 +82,7 @@ function App() {
         <ReviewForm path="/reviews/:editId" user={user} isAdmin={isAdmin}/>
         <ReviewForm path="/reviews/:idBootcamp/:idStudentId" user={user} isAdmin={isAdmin}/>
         <ReviewsStudentList path="reviews/student/:studentId" isAdmin={isAdmin} students={students} />
-        <ReviewStudentForm path="/reviews/student/:studentId/:reviewId" />
+        <ReviewStudentForm path="/reviews/student/:studentId/:reviewId" isAdmin={isAdmin} />
         <NotFoundPage default />
       </Router>
     </div>
