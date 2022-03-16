@@ -86,7 +86,6 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
 
     return (
         <div>
-            {JSON.stringify(student)}
         <br/>
         <h2 className="text-center">Lista de Revisiones</h2>
         {isAdmin ? 
