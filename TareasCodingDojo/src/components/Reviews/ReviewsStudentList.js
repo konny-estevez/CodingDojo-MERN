@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from '@reach/router';
-import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
+import {FirebaseUtil} from '../Utils/Firebase.Util';
 
-export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
+export const ReviewsStudentList = ({studentId, isAdmin}) => {
     const [reviews, setReviews] = useState({});
     const [errors, setErrors] = useState('');
     const [updateId, setUpdateId] = useState('');
@@ -18,7 +18,7 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
           getTasks();
           if (!isAdmin) 
             getData();
-      }, [updateId]);
+      }, [updateId,isAdmin]);
 
       const getBootcamps = async () => {
         let result = await FirebaseUtil.getBootcamps();
@@ -88,30 +88,7 @@ export const ReviewsStudentList = ({studentId, isAdmin, studentsx}) => {
         <div>
         <br/>
         <h2 className="text-center">Lista de Revisiones</h2>
-        {isAdmin ? 
-        <>
-        <div className="row">
-            <br/>
-            <div className="col-md-1">
-                <label htmlFor="bootcamps" className="form-label" >Curso:</label>
-            </div>
-            <div className="col-md-4">
-                <select className="form-control" name="bootcamps" onChange={handleChange} value={bootcampId} >
-                    <option key={0} value="">[Selecciona un curso]</option>
-                    { bootcamps.map((item,i) => <option key={i} value={item.id}>{item.name}</option>)}
-                </select>
-            </div>
-            <div className="col-md-1">
-                <label htmlFor="students" className="form-label" >Estudiante:</label>
-            </div>
-            <div className="col-md-4">
-                <select className="form-control" name="students" onChange={handleChange} value={student.id} >
-                    <option key={0} value="">[Selecciona un estudiante]</option>
-                    { students.map((item,i) => <option key={i} value={item.id}>{item.name}</option>)}
-                </select>
-            </div>
-            <br/> 
-            </div></>: ''}
+        <br/>
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <table className="table table-striped">
             <thead>

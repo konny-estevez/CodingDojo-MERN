@@ -23,7 +23,6 @@ export const StudentsList = ({isAdmin}) => {
                     setErrors('');
                     let temp = Object.keys(response).map((keyName,i) => {
                         response[keyName].id = keyName;
-                        //temp = [...temp, response[keyName]];
                         return response[keyName];
                     });
                     temp.sort((a,b) => {
@@ -48,9 +47,8 @@ export const StudentsList = ({isAdmin}) => {
   return (
     <div>
         <br/>
-        <Link to="/students/new" className="btn btn-primary">Nuevo</Link>
-        <br/>
         <h2 className="text-center">Lista de Estudiantes</h2>
+        <Link to="/students/new" className="btn btn-primary">Nuevo</Link>
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <table className="table table-striped">
             <thead>

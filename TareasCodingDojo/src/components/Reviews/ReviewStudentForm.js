@@ -70,7 +70,6 @@ export const ReviewStudentForm = ({reviewId,isAdmin}) => {
       taskCompleted: taskCompleted,
       comments: comments,
     };
-    //console.log(review);
   }
 
   return (

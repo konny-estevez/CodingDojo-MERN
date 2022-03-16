@@ -30,14 +30,13 @@ export const BootcampsList = ({isAdmin}) => {
               .catch(error => setErrors(error));
           }
           getData();
-      }, [updateId]);
+      }, [updateId,isAdmin]);
 
   return (
     <div>
-        <br/>
+        <h2 className="text-center">Lista de Cursos</h2>
         <Link to="/bootcamps/new" className="btn btn-primary">Nuevo</Link>
         <br/>
-        <h2 className="text-center">Lista de Cursos</h2>
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <table className="table table-striped">
             <thead>
