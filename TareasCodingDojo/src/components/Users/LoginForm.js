@@ -50,11 +50,14 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent,setFullName}) => {
           //localStorage.setItem("coding-dojo-tasks", result.user.uid);
           localStorage.setItem("coding-dojo-tasks", JSON.stringify(result.user));
           let student = await FirebaseUtil.getStudent(result.user.uid);
-          if (student.name)
+          if (student.name) {
             setFullName(student.name.toLowerCase());
-          else 
+            navigate("/reviews/student/"+result.user.uid, result.user);
+          }
+          else {
             setFullName("admin");
-          navigate("/home", result.user);
+            navigate("/home", result.user);
+          }
         }
         else if (result && result.code) {
           setErrors(result.message);
