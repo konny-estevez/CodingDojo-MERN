@@ -109,7 +109,9 @@ export const ReviewsList = ({isAdmin}) => {
             </div></>: ''}
         <br/>
         <h2 className="text-center">Lista de Revisiones</h2>
-        <Link to="/reviews/new" className="btn btn-primary">Nuevo</Link>
+        { bootcampId 
+        ? <Link to={"/reviews/" + bootcampId + "/" + studentId} className="btn btn-primary">Nuevo</Link>
+        : <Link to="/reviews/new" className="btn btn-primary">Nuevo</Link> }
         <br/>
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <table className="table table-striped">

@@ -23,6 +23,7 @@ export const ReviewForm = ({editId, isAdmin, idBootcamp, idStudent}) => {
   const [createdAt, setCreatedAt] = useState('');
   const [comments, setComments] = useState([]);
   const firstInput = useRef('');
+  const taskRef = useRef('');
 
   useEffect(() => {
     if (!isAdmin) {
@@ -41,6 +42,13 @@ export const ReviewForm = ({editId, isAdmin, idBootcamp, idStudent}) => {
         }
         if (idBootcamp) {
           setBootcampId(idBootcamp);
+          if (idStudent) {
+            setStudentId(idStudent);
+          }
+          getStudents(idBootcamp);
+          getTasks(idBootcamp);
+          if (taskRef.current)
+          taskRef.current.focus();
         }
         if (editId) {
           let result;
@@ -169,43 +177,68 @@ export const ReviewForm = ({editId, isAdmin, idBootcamp, idStudent}) => {
 return (
   <div className="text-center">
       <br/>
-      <form className="form-signin" onSubmit={handleSubmit}>
+      <form className="form-signin" onSubmit={handleSubmit}  style={{"maxWidth":"500px"}}>
         <h2 className="h3 mb-3 font-weight-normal">{!editId ? "Nuevo Revisión" : "Edición Revisión"}</h2>
-        <label htmlFor="id" className="sr-only">Id</label>
-        <input type="text" name="id" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
-        
-        <label htmlFor="createdAt" className="sr-only">Fecha Creación</label>
-        <input type="text" name="createdAt" className="form-control" required="" onChange={handleChange} value={createdAt} readOnly/>
-
-        <label htmlFor="bootcampId" className="sr-only">Curso</label>
-        { id ? <input className="form-control" required onChange={handleChange} value={bootcamp} disabled /> : 
-        <select name="bootcampId" className="form-control" required="" ref={firstInput} onChange={handleChange} value={bootcampId}>
-          <option key={0} value={''} disabled>[Seleccione un Bootcamp]</option>
-          {bootcamps.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
-         </select>}
-
-         <label htmlFor="studentId" className="sr-only">Estudiante</label>
-         {id ?  <input className="form-control" required onChange={handleChange} value={student} disabled/> :
-        <select name="studentId" className="form-control" required="" onChange={handleChange} value={studentId} >
-          <option key={0} value={''} disabled>[Seleccione un Estudiante]</option>
-          {students.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
-        </select>}
-
-        <label htmlFor="taskId" className="sr-only">Tarea</label>
-        { id ? <input className="form-control" required onChange={handleChange} value={task} disabled/> :
-        <select name="taskId" className="form-control" required="" onChange={handleChange} value={taskId} >
-          <option key={0} value={''} disabled>[Seleccione una Tarea]</option>
-          {tasks.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
-        </select>}
-
-        <br/>
-        <div className="checkbox mb-3">
-          <label>
-            <input type="checkbox" name="finished" onChange={handleChange} checked={taskCompleted}/> Tarea completada
-          </label>
-        </div>
-        <label htmlFor="firstComment" className="sr-only">Primer Comentario</label>
-        <textarea name="firstComment" className="form-control" placeholder="Ingresa el primer comentario" required="" onChange={handleChange} value={firstComment} />
+        <table width="100%">
+          <tbody>
+            <tr>
+            <td width="30%" className="text-start"><label htmlFor="id" className="sr-only">Id:</label></td>
+            <td>
+              <input type="text" name="id" className="form-control" required="" onChange={handleChange} value={id} readOnly/>
+            </td>
+          </tr>
+          <tr>
+            <td className="text-start"><label htmlFor="createdAt" className="sr-only">Fecha Creación:</label></td>
+            <td>
+              <input type="text" name="createdAt" className="form-control" required="" onChange={handleChange} value={createdAt} readOnly/>
+            </td>
+          </tr>
+          <tr>
+            <td className="text-start"><label htmlFor="bootcampId" className="sr-only">Curso:</label></td>
+            <td>
+                { id ? <input className="form-control" required onChange={handleChange} value={bootcamp} disabled /> 
+            : <select name="bootcampId" className="form-control" required="" ref={firstInput} onChange={handleChange} value={bootcampId}>
+              <option key={0} value={''} disabled>[Seleccione un Bootcamp]</option>
+              {bootcamps.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
+            </select>}
+            </td> 
+          </tr>
+          <tr>
+            <td className="text-start"><label htmlFor="studentId" className="sr-only">Estudiante:</label></td>
+            <td>
+                {id ?  <input className="form-control" required onChange={handleChange} value={student} disabled/> 
+                : <select name="studentId" className="form-control" required="" onChange={handleChange} value={studentId} >
+                  <option key={0} value={''} disabled>[Seleccione un Estudiante]</option>
+                  {students.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
+                </select>}
+            </td>
+          </tr>
+          <tr>
+              <td className="text-start"><label htmlFor="taskId" className="sr-only">Tarea:</label></td>
+              <td>
+              { id ? <input className="form-control" required onChange={handleChange} value={task} disabled/> 
+                : <select name="taskId" className="form-control" required="" onChange={handleChange} value={taskId} ref={taskRef}>
+                  <option key={0} value={''} disabled>[Seleccione una Tarea]</option>
+                  {tasks.map((item, i) => <option key={i} value={item.id}>{item.name}</option>)}
+                </select>}
+              </td>
+            </tr>
+            <tr>
+              <td className="text-start"><label htmlFor="taskId" className="sr-only">Completada:</label></td>
+              <td>
+                <input type="checkbox" name="finished" onChange={handleChange} checked={taskCompleted}/> 
+              </td>
+            </tr>
+            <tr>
+              <td className="text-start"><label htmlFor="firstComment" className="sr-only">Primer Comentario:</label></td>
+            </tr>
+            <tr>
+              <td colSpan="100%">
+                <textarea name="firstComment" className="form-control" placeholder="Ingresa el primer comentario" required="" onChange={handleChange} value={firstComment} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
         {!errors ? '' : <div className="text-danger">{errors}</div> }
         <br/>
         { !newSaved || editId === id ? <button className="btn btn-primary" type="submit">Guardar</button> : '' }
