@@ -243,7 +243,9 @@ return (
         <br/>
         { !newSaved || editId === id ? <button className="btn btn-primary" type="submit">Guardar</button> : '' }
        </form> { id ? <DeleteButton id={id} collection={"reviews"} showSeparator={true} />   : ''}
-       <Link to="/reviews" className="btn btn-primary">Regresar a Lista</Link>
+       { idBootcamp && idStudent
+        ? <Link to={"/reviews/" + bootcampId + "/" + studentId} className="btn btn-primary">Regresar a Lista</Link>
+        : <Link to="/reviews" className="btn btn-primary">Regresar a Lista</Link>}
        <CommentsListForm reviewId={editId} studentId={studentId} taskCompleted={taskCompleted} isAdmin={true} comments={comments} setComments={setComments} />
   </div>
   )

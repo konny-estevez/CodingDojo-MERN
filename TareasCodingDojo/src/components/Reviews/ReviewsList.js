@@ -5,14 +5,13 @@ import {FirebaseUtil} from '../Utils/Firebase.Util';
 import { DeleteButton } from '../Utils/DeleteButton';
 import { UpdateIdButton } from '../Utils/UpdateIdButton';
 
-export const ReviewsList = ({isAdmin}) => {
+export const ReviewsList = ({isAdmin, idBootcamp, idStudent}) => {
     const [reviews, setReviews] = useState({});
     const [errors, setErrors] = useState('');
     const [updateId, setUpdateId] = useState('');
     const [bootcamps, setBootcamps] = useState([]);
     const [students, setStudents] = useState([]);
     const [tasks, setTasks] = useState([]);
-    //const [student, setStudent] = useState('');
     const [bootcampId, setBootcampId] = useState('');
     const [studentId, setStudentId] = useState('');
 
@@ -23,6 +22,14 @@ export const ReviewsList = ({isAdmin}) => {
           }
 
         getCatalogs();
+        if (idBootcamp) {
+          setBootcampId(idBootcamp);
+          getStudents(idBootcamp);
+        }
+        if (idStudent)
+          setStudentId(idStudent);
+        if (idBootcamp && idStudent)
+            getData(idStudent);
     }, [updateId]);
 
     const getCatalogs = async () => {
@@ -57,21 +64,25 @@ export const ReviewsList = ({isAdmin}) => {
           setStudents(temp);*/
       }
 
+    const getStudents = async (bootcampId) => {
+        let temp = await FirebaseUtil.getStudents(bootcampId);
+        temp.sort((a,b) => {
+            if (a.name < b.name)
+                return -1;
+            else if (a.name > b.name)
+                return 1;
+            else 
+                return 0;
+        });
+        setStudents(temp);
+    }
+
     const handleChange = async (e) => {
         let temp = [];
         switch (e.target.name) {
             case 'bootcamps':
                 setBootcampId(e.target.value);
-                temp = await FirebaseUtil.getStudents(e.target.value);
-                temp.sort((a,b) => {
-                    if (a.name < b.name)
-                        return -1;
-                    else if (a.name > b.name)
-                        return 1;
-                    else 
-                        return 0;
-                });
-                setStudents(temp);
+                getStudents(e.target.value);
                 setReviews({});
                 break;
             case 'students':
@@ -110,7 +121,7 @@ export const ReviewsList = ({isAdmin}) => {
         <br/>
         <h2 className="text-center">Lista de Revisiones</h2>
         { bootcampId 
-        ? <Link to={"/reviews/" + bootcampId + "/" + studentId} className="btn btn-primary">Nuevo</Link>
+        ? <Link to={"/reviews/new/" + bootcampId + "/" + studentId} className="btn btn-primary">Nuevo</Link>
         : <Link to="/reviews/new" className="btn btn-primary">Nuevo</Link> }
         <br/>
         {!errors ? '' : <div className="text-danger">{errors}</div> }
