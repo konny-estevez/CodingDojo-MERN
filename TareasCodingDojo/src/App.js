@@ -80,7 +80,7 @@ function App() {
         <ReviewsList path="/reviews" user={user} isAdmin={isAdmin} />
         <ReviewsList path="/reviews/:idBootcamp/:idStudent" user={user} isAdmin={isAdmin} />
         <ReviewForm path="/reviews/new" user={user} isAdmin={isAdmin}/>
-        <ReviewForm path="/reviews/:editId" user={user} isAdmin={isAdmin}/>
+        <ReviewForm path="/reviews/:editId/:idBootcamp/:idStudent" user={user} isAdmin={isAdmin}/>
         <ReviewForm path="/reviews/new/:idBootcamp/:idStudent" user={user} isAdmin={isAdmin}/>
         <ReviewsStudentList path="reviews/student/:studentId" isAdmin={isAdmin} students={students} />
         <ReviewStudentForm path="/reviews/student/:studentId/:reviewId" isAdmin={isAdmin} />

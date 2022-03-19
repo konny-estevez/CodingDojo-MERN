@@ -143,7 +143,10 @@ export const ReviewsList = ({isAdmin, idBootcamp, idStudent}) => {
             {reviews && Object.keys(reviews).map((keyName,i) => 
               <tr key={i}>
                 <td>{i+1}</td>
-                <td><Link to={"/reviews/"+ keyName}>{keyName}</Link></td>
+                { bootcampId && studentId 
+                    ? <td><Link to={"/reviews/"+ keyName + "/"  + bootcampId + "/" + studentId}>{keyName}</Link></td>
+                    : <td><Link to={"/reviews/"+ keyName}>{keyName}</Link></td>
+                }
                 <td>{bootcamps.length > 0 && bootcamps.find(item => item.id === reviews[keyName].bootcampId).name}</td>
                 <td>{students.length > 0 && students.find(item => item.id === reviews[keyName].studentId).name}</td>
                 <td>{tasks.length > 0 && tasks.find(item => item.id === reviews[keyName].taskId).name}</td>
