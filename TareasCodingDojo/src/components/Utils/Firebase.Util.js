@@ -417,7 +417,6 @@ const deleteTask = (id) => {
 const getReviews = async (studentId) => {
   let result;
   if (studentId) {
-    //console.log("Get reviews filtradas:", studentId);
     let reviewsRef = ref(getDatabase(), "reviews");
     //console.log(reviewsRef);
     let querys = child(databaseRef, "reviews");
@@ -434,7 +433,6 @@ const getReviews = async (studentId) => {
               result[key] = data[key];
             return data[key];
         });
-        //console.log(result);
       } else {
         result = "No existen datos.";
       }

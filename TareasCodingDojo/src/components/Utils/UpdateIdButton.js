@@ -10,11 +10,9 @@ export const UpdateIdButton = ({id, collection, setUpdateId, separator}) => {
             case "students":
                 await FirebaseUtil.updateStudentId(id)
                     .then(response => {result = response; 
-                    //console.log(response);
                 })
                     .catch(error => console.log(error));
                     setUpdateId(result.id);
-                //console.log("Resultado UpdateId: ", result);
                 break;
             case "bootcamps":
                 result = await FirebaseUtil.updateBootcampId(id);

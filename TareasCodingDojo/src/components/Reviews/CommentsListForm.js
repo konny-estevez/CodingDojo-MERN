@@ -3,25 +3,28 @@ import {FirebaseUtil} from '../Utils/Firebase.Util';
 import '../Utils/styles.css';
 import { DeleteButton } from '../Utils/DeleteButton';
 
-export const CommentsListForm = ({reviewId, taskCompleted, isAdmin}) => {
+export const CommentsListForm = ({reviewId, taskCompleted, isAdmin, comments, setComments}) => {
     const [newSaved, setNewSaved] = useState(false);
     const [comment, setComment] = useState('');
     const [errors, setErrors] = useState('');
-    const [commentsData, setCommentsData] = useState([]);
+    const [commentsList, setCommentsList] = useState([]);
     
     useEffect(() => {
         const getData = async () => {
             let data = [];
             let comments = await FirebaseUtil.getComments(reviewId);
             if (typeof(comments) === "object") {
-                Object.keys(comments).map(key => data = [{
-                    id: key,
-                    createdAt: comments[key].createdAt,
-                    comment: comments[key].comment,
-                    isAdmin: comments[key].isAdmin,
-                }, ...data] );
+                setComments(comments);
+                data = Object.keys(comments).map(key => {
+                    return {
+                        id: key,
+                        createdAt: comments[key].createdAt,
+                        comment: comments[key].comment,
+                        isAdmin: comments[key].isAdmin,
+                    };
+                });
             }
-            setCommentsData(data);
+            setCommentsList(data);
             setNewSaved(false);
         };
         getData();
@@ -52,6 +55,8 @@ export const CommentsListForm = ({reviewId, taskCompleted, isAdmin}) => {
           setNewSaved(true);
           setComment('');
           setErrors("Comentario guardado exitosamente");
+          setComments({...comments, [result.id]: newComment});
+          setCommentsList([...commentsList, result]);
           let review = await FirebaseUtil.getReview(reviewId);
           review.updatedAt = new Date().toISOString();
           FirebaseUtil.updateReview(reviewId, review);
@@ -80,13 +85,13 @@ export const CommentsListForm = ({reviewId, taskCompleted, isAdmin}) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {commentsData.map((item,i) => <tr key={i}>
+                    {commentsList.map((item,i) => <tr key={i}>
                         <td>{i+1}</td>
                         <td>{item.createdAt.substring(0,10)}</td>
                         <td className="text-start">{item.comment}</td>
                         <td>{item.isAdmin ? "Tutor" : "Estudiante"}</td>
                         <td>
-                        { !item.isAdmin || isAdmin ? <DeleteButton id={item.id} collection={`reviews/${reviewId}/comments`} 
+                        { (!item.isAdmin || isAdmin) && !taskCompleted ? <DeleteButton id={item.id} collection={`reviews/${reviewId}/comments`} 
                             setDeleteId={updateReviewDate} showSeparator={false} /> : <></>}
                         </td>
                     </tr>) }
