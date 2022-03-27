@@ -16,7 +16,6 @@ export const LoginForm = ({user,setUser,isAdmin,isStudent,setFullName}) => {
     }
 
       if (isAdmin || isStudent) {
-        //console.log("Redirect to home");
         navigate("/home");
       }
       firstInput.current.focus();
