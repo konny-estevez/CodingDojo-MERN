@@ -40,8 +40,12 @@ app.post("/api/users", (req, res) => {
 app.get("/api/users/:id", (req, res) => {
     // we can get this `id` variable from req.params
     console.log(req.params.id);
+    const id = req.params.id;
     // assuming this id is the index of the users array we could return one user this way
-    res.json( users[req.params.id] );
+    if (users.length > id)
+        res.json( users[id] );
+    else 
+        res.status(404).json("User not found.");
 });
 
 app.put("/api/users/:id", (req, res) => {

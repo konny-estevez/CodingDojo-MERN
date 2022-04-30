@@ -1,0 +1,16 @@
+{
+  "name": "Fundamentals",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Objetos_Herencia.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^27.5.1"
+  }
+}
